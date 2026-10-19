@@ -1,0 +1,20 @@
+[
+  {
+    "name": "char-arthur-darkroom-1865",
+    "ratio": "3:4",
+    "ref": "C:/Users/C/Documents/Qoder/2026-10-12/27d21b2f/追光1865_预生产包/图片/正典/定妆-亚瑟.png",
+    "prompt": "Keep the man's face EXACTLY identical to the reference portrait: same facial structure, eyes, nose, mouth, hairline, beard. New scene and costume: 1865 wet-plate collodion darkroom lit only by a red safelight, a Victorian English gentleman photographer in his thirties with rolled-up white shirt sleeves, dark waistcoat and leather apron, leaning over and gently rocking a silver developing tray, glass plate negative submerged in amber developer, shelves of chemical bottles and hanging negatives behind him, 1940s-50s Technicolor film-still grade, saturated warm reds against deep shadow, painterly photographic realism, vertical composition"
+  },
+  {
+    "name": "char-shen-countinghouse",
+    "ratio": "3:4",
+    "ref": "C:/Users/C/Documents/Qoder/2026-10-12/27d21b2f/追光1865_预生产包/图片/正典/定妆-沈-Z1.png",
+    "prompt": "Keep the woman's face EXACTLY identical to the reference portrait: same facial structure, eyes, nose, mouth, hairline. New scene and costume: 1860s Chinese counting-house interior, a composed Chinese woman in her late twenties in a dark bombazine robe with high collar, round spectacles on a fine silver chain, writing brush poised over an open ledger of vertical columns, wooden abacus and brass scale and silver ingots at hand, warm lamplight against cool window light, 1940s-50s Technicolor film-still grade, painterly photographic realism, vertical composition"
+  },
+  {
+    "name": "char-isabella-fieldwork",
+    "ratio": "3:4",
+    "ref": "C:/Users/C/Documents/Qoder/2026-10-12/27d21b2f/追光1865_预生产包/图片/正典/定妆-伊莎贝拉-A.png",
+    "prompt": "Keep the woman's face EXACTLY identical to the reference portrait: same facial structure, eyes, nose, mouth, hairline. New scene and costume: 1870s archaeological field expedition on a windy sea cliff, a determined European woman explorer in her thirties in a practical wool travelling suit and wide brim hat, hands on a large bellows field camera mounted on a wooden tripod, wind in her skirt and hair, sunlit ruins and ocean behind, golden-hour 1940s-50s Technicolor film-still grade, painterly photographic realism, vertical composition"
+  }
+]

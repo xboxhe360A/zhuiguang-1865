@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ui-archive-desk-1905",
+    "ratio": "9:16",
+    "prompt": "Mobile game UI concept mockup, vertical 9:16. A 1905 editor's archive desk hub screen seen slightly top-down: darkened cyanotype-blue graded wooden desk with scattered dossier folders, sepia photographs, a brass oil lamp, three labeled volume slots and a wax-seal stamp tool laid out as interactive stations, sparse hand-lettered stylized labels, parchment tooltip cards, absolutely no modern flat buttons or neon, fully diegetic Victorian document interface, painterly, high detail"
+  },
+  {
+    "name": "ui-light-table-chart",
+    "ratio": "9:16",
+    "prompt": "Mobile game UI concept mockup, vertical 9:16. A translucent light-table chart-overlay screen: two nautical chart layers stacked on a glowing frosted-glass table, brass corner knobs for rotate and scale, a luminous ghost alignment overlay where the layers disagree, cyanotype-blue grade with a warm lamp rim light, diegetic Victorian instrument interface, no modern widgets, painterly, high detail"
+  },
+  {
+    "name": "ui-three-voice-ritual",
+    "ratio": "9:16",
+    "prompt": "Mobile game UI concept mockup, vertical 9:16. A chapter-end verdict ritual screen: three evidence cards fanned in the center of a darkened archive room, three wax stamp seals arranged below reading True, False, Doubtful, an editor's gloved hand reaching toward one seal, cyanotype-blue grade with candle highlights, diegetic Victorian interface, no modern buttons, painterly, high detail"
+  },
+  {
+    "name": "ui-scene-hotspot-hud",
+    "ratio": "9:16",
+    "prompt": "Mobile game UI concept mockup, vertical 9:16. An in-scene investigation HUD laid over a saturated 1865 street Technicolor film-still: three subtle copper ring hotspots circling interactable objects, a bottom porthole inventory strip of six round brass-rimmed slots, a thin paper-ribbon progress meter along the top, all elements diegetic period props, no modern flat UI, painterly, high detail"
+  },
+  {
+    "name": "concept-developing-reveal",
+    "ratio": "16:9",
+    "prompt": "Gameplay concept art, 16:9. Wet-plate developing reveal mechanic: two hands tilting a silver developing tray in a red-safelight darkroom, the hidden image of a figure gradually emerging from the amber fluid as the tray tilts, half-revealed face in the liquid, chemical bottles and hanging negatives in shadow, 1940s-50s Technicolor film-still grade, painterly photographic realism"
+  },
+  {
+    "name": "concept-saturation-evidence",
+    "ratio": "16:9",
+    "prompt": "Gameplay concept art, 16:9. Evidence-completeness saturation palette: one 1865 street scene split diagonally, left half desaturated grey incomplete evidence, right half rich saturated Technicolor complete evidence, a brass wax stamp pressing color back into the grey half along the divide, visible grain and film-still framing, painterly photographic realism"
+  }
+]
