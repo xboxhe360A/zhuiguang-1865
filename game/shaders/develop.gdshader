@@ -25,7 +25,7 @@ void fragment() {
 	vec4 src = texture(TEXTURE, UV);
 	float luma = dot(src.rgb, vec3(0.2126, 0.7152, 0.0722));
 	vec3 graded = mix(vec3(luma), src.rgb, saturation);
-	vec3 latent = vec3(luma) * 0.2 + vec3(0.012, 0.04, 0.05);
+	vec3 latent = vec3(luma) * 0.32 + vec3(0.014, 0.045, 0.055);
 
 	float n = value_noise(UV * vec2(grain_scale, grain_scale * 1.6)) * 0.72;
 	n += value_noise(UV * vec2(grain_scale * 2.7)) * 0.28;

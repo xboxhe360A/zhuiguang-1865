@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_ledger_name"
+title = "海邮包提单"
+body = "三箱海邮包，总重七十二长担。收件人一栏写着 H. Grey，寄往萨加尔号。父亲在 1865 年 4 月已经下葬——这行字却是他的笔迹，墨里还混着同一种盐渍。"
+voice = "evidence"
+weight = 10
+unlocks_entry_id = "entry_ledger_name"

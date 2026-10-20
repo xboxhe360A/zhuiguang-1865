@@ -1,0 +1,48 @@
+[
+  {
+    "name": "bg-alley",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1865 London back alley at night. Wet cobblestones reflecting a single amber gas lamp, thick yellow-green fog, brick walls and iron drainpipes, three rough men in bowler hats and heavy coats emerging from the fog toward the camera, one holding a wooden strongbox. Low camera angle, teal shadows and warm gaslight, painterly Technicolor documentary realism, shallow depth of field, high detail. Absolutely no text, no letters, no numbers, no signage, no watermark."
+  },
+  {
+    "name": "bg-attic",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1865 London attic room of a deceased hydrographer. Afternoon sun through a dusty dormer window, open brass-bound steamer trunk in the foreground, rolled nautical charts, a sextant, leather logbooks, an old naval coat on a chair, stacked wooden boxes, dust motes in the light. Warm sepia wood, teal shadows, painterly documentary realism, high detail. Absolutely no text, no letters, no numbers, no labels, no people."
+  },
+  {
+    "name": "flatlay-relics",
+    "ratio": "9:16",
+    "prompt": "Top-down flat lay photograph, vertical 9:16, nine Victorian objects arranged in a precise 3 by 3 grid on dark green baize, one object centered in each cell, evenly spaced, all fully visible with space around them: brass pocket watch, brass sextant, leather logbook, folded sealed letter, brass spyglass, naval dirk in scabbard, ship compass, glass ink bottle, sealed tin box. Soft warm museum lighting, painterly documentary realism, high detail. Absolutely no text, no letters, no numbers, no labels, no hands."
+  },
+  {
+    "name": "bg-society",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1865 London learned society lecture hall during a heated debate. Rows of wooden benches filled with Victorian gentlemen in dark coats, gas lamps along the walls, a speaker's table and blackboard at the far end, warm amber light and deep teal shadows, haze in the air. Viewed from the back of the hall, painterly Technicolor documentary realism, high detail. Absolutely no text, no letters, no numbers, no signage, no watermark."
+  },
+  {
+    "name": "bg-warehouse",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1865 London dock warehouse interior at dusk. Tall stacks of tea crates and wooden cargo boxes stenciled with blank shapes, heavy ropes and chains, a cargo manifest table with papers, foggy blue light through high dusty windows, one hanging lantern. Painterly Technicolor documentary realism, deep teal shadows and warm lantern glow, high detail. Absolutely no text, no letters, no numbers, no readable labels, no people."
+  },
+  {
+    "name": "bg-cabin",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1866 British Royal Navy survey ship captain's cabin interior. A chart desk with brass instruments, dividers and rolled maps, a small chest of drawers with brass handles, an oil lamp swinging gently, a round porthole showing grey ocean, dark mahogany paneling. Warm lamplight, teal shadows, painterly Technicolor documentary realism, high detail. Absolutely no text, no letters, no numbers, no labels, no people."
+  },
+  {
+    "name": "bg-pier",
+    "ratio": "9:16",
+    "prompt": "Vertical 9:16 cinematic film still, 1865 foggy Thames pier at night. A single amber gas lamp on an iron post, wet stone flags, stacked wooden crates and rope coils, thick fog, the black silhouette of a man in a bowler hat and long coat standing far back in the mist, river water barely visible. Teal and amber palette, painterly Technicolor documentary realism, high detail. Absolutely no text, no letters, no numbers, no signage."
+  },
+  {
+    "name": "trace-tracks",
+    "ratio": "9:16",
+    "prompt": "A sheet of translucent tracing paper photographed flat from directly above on a pure white background, vertical 9:16. Three hand-drawn ship measurement tracks in thin ink lines of faded red, dark sepia and faded blue, crossing the paper and converging toward one tiny point in the lower third, one faint compass rose in a corner, plenty of empty paper. Absolutely no text, no letters, no numbers, no labels. High contrast thin ink lines, even lighting, painterly."
+  },
+  {
+    "name": "bg-sagar-deck",
+    "ratio": "9:16",
+    "ref": "C:/Users/C/Documents/Qoder/2026-10-12/27d21b2f/追光1865_预生产包/图片/正典/场景底-卷二萨加尔.png",
+    "prompt": "Recompose this exact 1866 Royal Navy survey ship deck scene as a vertical 9:16 portrait film still. Keep the same period-accurate white-uniformed sailors, dark silhouetted officers, wooden deck, rigging and turquoise Pacific horizon; place the chart table with unfurled map in the lower foreground, mast and rigging rising through the center, sailors gathered at the rail on both sides. Painterly Technicolor documentary realism, warm sunlight and deep teal sea, high detail. Absolutely no text, no letters, no numbers, no labels."
+  }
+]

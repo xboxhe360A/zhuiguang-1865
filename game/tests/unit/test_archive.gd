@@ -8,13 +8,13 @@ func test_wudu_dossier_is_registered() -> void:
 	assert_eq(dossier.volume, "unfiled")
 
 
-func test_wudu_has_five_cards_and_eleven_puzzles() -> void:
+func test_wudu_has_seven_cards_and_eleven_puzzles() -> void:
 	var cards := Archive.cards_for("dossier_wudu")
-	assert_eq(cards.size(), 5)
+	assert_eq(cards.size(), 7)
 	var total_weight := 0
 	for card in cards:
 		total_weight += card.weight
-	assert_eq(total_weight, 45)
+	assert_eq(total_weight, 70)
 	assert_eq(Archive.get_dossier("dossier_wudu").puzzle_ids.size(), 11)
 
 

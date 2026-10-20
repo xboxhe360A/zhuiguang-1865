@@ -9,15 +9,21 @@ const VOLUMES: Array[String] = ["existence", "annal", "memory"]
 const VERDICTS: Array[String] = ["true", "false", "doubt"]
 
 var current_dossier_id: String = ""
+var current_scene_id: String = ""
+var current_puzzle_id: String = ""
 var collected: Dictionary = {}
 var verdicts: Dictionary = {}
+var puzzles_done: Dictionary = {}
 var completeness: int = 0
 
 
 func reset_run() -> void:
 	current_dossier_id = ""
+	current_scene_id = ""
+	current_puzzle_id = ""
 	collected.clear()
 	verdicts.clear()
+	puzzles_done.clear()
 	completeness = 0
 	completeness_changed.emit(completeness)
 
@@ -49,8 +55,10 @@ func save_to(path: String = "user://save.json") -> Error:
 		return FileAccess.get_open_error()
 	var data := {
 		"current_dossier_id": current_dossier_id,
+		"current_scene_id": current_scene_id,
 		"collected": collected.keys(),
 		"verdicts": verdicts,
+		"puzzles_done": puzzles_done,
 		"completeness": completeness,
 		"saturation": Palette.saturation,
 	}
@@ -69,10 +77,12 @@ func load_from(path: String = "user://save.json") -> Error:
 		return ERR_PARSE_ERROR
 	var data: Dictionary = parsed
 	current_dossier_id = str(data.get("current_dossier_id", ""))
+	current_scene_id = str(data.get("current_scene_id", ""))
 	collected.clear()
 	for id in data.get("collected", []):
 		collected[str(id)] = true
 	verdicts = data.get("verdicts", {})
+	puzzles_done = data.get("puzzles_done", {})
 	completeness = int(data.get("completeness", 0))
 	Palette.set_saturation(float(data.get("saturation", 0.35)))
 	completeness_changed.emit(completeness)

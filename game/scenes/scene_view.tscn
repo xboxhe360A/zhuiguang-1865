@@ -146,7 +146,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_view")
 
-[node name="Plate" type="TextureRect" parent="."]
+[node name="Bg" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -191,7 +192,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.211765, 0.176471, 0.117647, 1)
 theme_override_font_sizes/font_size = 24
-text = "序卷 · 雾都    ｜    现场 · 暗房    ｜    证据 0 / 5"
+text = "序卷 · 雾都    ｜    现场    ｜    证据 0 / 7"
 
 [node name="Spacer" type="Control" parent="TopMargin/TopRow"]
 layout_mode = 2
@@ -203,7 +204,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "档案桌"
+text = "卷宗目录"
 
 [node name="Hint" type="Label" parent="."]
 unique_name_in_owner = true
@@ -235,49 +236,15 @@ theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HotspotPlate" type="Button" parent="."]
+[node name="Hotspots" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.54
-anchor_top = 0.61
-anchor_right = 0.54
-anchor_bottom = 0.61
-offset_left = -110.0
-offset_top = -110.0
-offset_right = 110.0
-offset_bottom = 110.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
-theme_override_colors/font_disabled_color = Color(0.85098, 0.741176, 0.454902, 0.95)
-theme_override_font_sizes/font_size = 26
-theme_override_styles/hover = SubResource("StyleBoxFlat_hotspot_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hotspot_hover")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_hotspot_disabled")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hotspot")
-
-[node name="HotspotChart" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.82
-anchor_top = 0.23
-anchor_right = 0.82
-anchor_bottom = 0.23
-offset_left = -92.0
-offset_top = -92.0
-offset_right = 92.0
-offset_bottom = 92.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
-theme_override_colors/font_disabled_color = Color(0.85098, 0.741176, 0.454902, 0.95)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = SubResource("StyleBoxFlat_hotspot_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hotspot_hover")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_hotspot_disabled")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hotspot")
+mouse_filter = 2
 
 [node name="Inventory" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -458,6 +425,7 @@ fit_content = true
 text = "湿版底片背面压印着一行反字。"
 
 [node name="SheetSource" type="Label" parent="EvidenceSheet/Center/SheetPanel/Box"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
 theme_override_font_sizes/font_size = 22

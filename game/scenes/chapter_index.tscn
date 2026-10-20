@@ -1,0 +1,167 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/chapter_index.gd" id="1_index"]
+[ext_resource type="Texture2D" path="res://assets/ui/archive_desk_bg.jpg" id="2_bg"]
+[ext_resource type="FontFile" path="res://assets/fonts/IMFellEnglish-Italic.ttf" id="3_fell"]
+[ext_resource type="FontFile" path="res://assets/fonts/IMFellEnglish-Regular.ttf" id="4_fell_regular"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_footer"]
+content_margin_left = 28.0
+content_margin_top = 16.0
+content_margin_right = 28.0
+content_margin_bottom = 16.0
+bg_color = Color(0.027451, 0.0509804, 0.0588235, 0.86)
+border_width_top = 1
+border_color = Color(0.72549, 0.639216, 0.384314, 0.3)
+
+[node name="ChapterIndex" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_index")
+
+[node name="Bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196078, 0.0392157, 0.0470588, 0.62)
+
+[node name="Frame" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 72
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Eyebrow" type="Label" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("4_fell_regular")
+text = "DOSSIER WUDU  ·  LONDON 1905"
+
+[node name="TitleRow" type="HBoxContainer" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="Frame/VBox/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.909804, 0.827451, 0.627451, 1)
+theme_override_font_sizes/font_size = 56
+text = "雾都 · 格雷遗物"
+
+[node name="ProgressLabel" type="Label" parent="Frame/VBox/TitleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+text = "证据 0 / 7"
+
+[node name="Subtitle" type="Label" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.741176, 0.776471, 0.741176, 1)
+theme_override_font_sizes/font_size = 26
+text = "序卷 1865 · 伦敦 ｜ 卷二 1866 · 萨加尔"
+
+[node name="Line" type="ColorRect" parent="Frame/VBox"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.72549, 0.639216, 0.384314, 0.35)
+
+[node name="Scroll" type="ScrollContainer" parent="Frame/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SceneList" type="VBoxContainer" parent="Frame/VBox/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Footer" type="PanelContainer" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_footer")
+
+[node name="Row" type="HBoxContainer" parent="Frame/VBox/Footer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="BtnDesk" type="Button" parent="Frame/VBox/Footer/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "合上卷宗"
+
+[node name="Spacer" type="Control" parent="Frame/VBox/Footer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnRitual" type="Button" parent="Frame/VBox/Footer/Row"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "三声裁定 · 封存本卷"
+
+[node name="BtnContinue" type="Button" parent="Frame/VBox/Footer/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "继续查档"
+
+[node name="Toast" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToastTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
+one_shot = true

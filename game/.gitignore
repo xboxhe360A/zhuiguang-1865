@@ -3,3 +3,4 @@ export/
 build/
 *.tmp
 *.avi
+qa/

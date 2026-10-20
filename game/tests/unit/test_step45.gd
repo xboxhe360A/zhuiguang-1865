@@ -69,13 +69,26 @@ func test_ritual_rejects_wrong_voice_then_seals_doubt() -> void:
 	assert_almost_eq(Palette.saturation, 0.35, 0.001)
 
 
-func test_scene_view_disables_collected_hotspots() -> void:
+func test_scene_view_marks_completed_hotspots() -> void:
+	Chapter.mark_done("P0")
+	Chapter.mark_done("P2")
+	Chapter.mark_done("P3")
 	GameState.collect_evidence("card_chart_splice", 10)
 	GameState.collect_evidence("card_plate_press", 10)
+	GameState.current_scene_id = "attic"
 	var scene := load("res://scenes/scene_view.tscn") as PackedScene
 	var view := scene.instantiate()
 	add_child_autofree(view)
 	await wait_process_frames(2)
-	assert_true(view.get_node("%HotspotPlate").disabled)
-	assert_true(view.get_node("%HotspotChart").disabled)
-	assert_eq(view.get_node("%Hint").text, "现场已清点 · 回到档案桌收尾")
+	var buttons: Array[Button] = []
+	for child in view.get_node("%Hotspots").get_children():
+		if child is Button:
+			buttons.append(child)
+	assert_eq(buttons.size(), 3)
+	var done_count := 0
+	for button in buttons:
+		if button.text == "✓":
+			done_count += 1
+	assert_eq(done_count, 2)
+	assert_eq(view.get_node("%Portholes").get_child_count(), 2)
+	assert_true(view.get_node("%Hint").text.contains("还有 1 处待查"))

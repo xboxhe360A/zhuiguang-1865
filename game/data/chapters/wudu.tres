@@ -1,0 +1,458 @@
+[gd_resource type="Resource" script_class="ChapterDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/chapter_def.gd" id="1_chapter"]
+
+[resource]
+script = ExtResource("1_chapter")
+id = "wudu"
+title = "雾都 · 格雷遗物"
+subtitle = "序卷 1865 · 伦敦 ｜ 卷二 1866 · 萨加尔"
+scenes = [{
+"id": "alley",
+"index": "I",
+"title": "圣殿区后巷",
+"subtitle": "1865 · 伦敦 · 夜",
+"bg": "res://assets/ui/bg_alley.jpg",
+"hint": "雾里有三个人挡住了巷口。",
+"requires": [],
+"hotspots": [{
+"puzzle": "P0",
+"pos": Vector2(0.5, 0.6),
+"radius": 150,
+"label": "巷口 · 三拍",
+"done": "巷口已清"
+}]
+}, {
+"id": "attic",
+"index": "II",
+"title": "格雷遗物阁楼",
+"subtitle": "1865 · 伦敦 · 午后",
+"bg": "res://assets/ui/bg_attic.jpg",
+"hint": "木箱开着，窗台压着航图，楼梯下还有一间暗房。",
+"requires": ["P0"],
+"hotspots": [{
+"puzzle": "P1",
+"pos": Vector2(0.38, 0.7),
+"radius": 130,
+"label": "打开木箱 · 清点遗物",
+"done": "遗物已出账"
+}, {
+"puzzle": "P2",
+"pos": Vector2(0.28, 0.27),
+"radius": 120,
+"label": "窗台航图 · 首次校合",
+"done": "航图已校合"
+}, {
+"puzzle": "P3",
+"pos": Vector2(0.84, 0.55),
+"radius": 110,
+"label": "暗房 · 显影底片",
+"done": "底片已显影"
+}]
+}, {
+"id": "society",
+"index": "III",
+"title": "人类学学会旁听席",
+"subtitle": "1865 · 伦敦 · 辩论夜",
+"bg": "res://assets/ui/bg_society.jpg",
+"hint": "赫胥黎与反对派吵了一整晚，借阅簿也是那晚丢的。",
+"requires": ["P1", "P2", "P3"],
+"hotspots": [{
+"puzzle": "P4",
+"pos": Vector2(0.5, 0.62),
+"radius": 140,
+"label": "旁听席 · 找借阅人",
+"done": "借阅人已锁定"
+}]
+}, {
+"id": "warehouse",
+"index": "IV",
+"title": "东印度码头货栈",
+"subtitle": "1865 · 伦敦 · 雾夜",
+"bg": "res://assets/ui/bg_warehouse.jpg",
+"hint": "三箱海邮包还压在货栈里，提单上的收件人没有名字。",
+"requires": ["P4"],
+"hotspots": [{
+"puzzle": "P5",
+"pos": Vector2(0.5, 0.6),
+"radius": 150,
+"label": "货栈提单 · 三箱海邮包",
+"done": "海邮包已吊装"
+}]
+}, {
+"id": "deck",
+"index": "V",
+"title": "萨加尔号 · 测量甲板",
+"subtitle": "1866 · 太平洋",
+"bg": "res://assets/ui/bg_sagar_deck.jpg",
+"hint": "图廊、测深台与后甲板，各自留着一份对不上的数。",
+"requires": ["P5"],
+"hotspots": [{
+"puzzle": "P6",
+"pos": Vector2(0.45, 0.86),
+"radius": 140,
+"label": "图廊 · 四文明配对",
+"done": "图件已配对"
+}, {
+"puzzle": "P7",
+"pos": Vector2(0.2, 0.64),
+"radius": 110,
+"label": "测深台 · 修正读数",
+"done": "读数已修正"
+}, {
+"puzzle": "P9",
+"pos": Vector2(0.62, 0.62),
+"radius": 120,
+"label": "后甲板 · 三条航迹",
+"done": "航迹已叠合"
+}]
+}, {
+"id": "cabin",
+"index": "VI",
+"title": "萨加尔号 · 船长舱室",
+"subtitle": "1866 · 太平洋",
+"bg": "res://assets/ui/bg_cabin.jpg",
+"hint": "船长把索赔文书锁在抽屉里，压痕却留在底板上。",
+"requires": ["P6"],
+"hotspots": [{
+"puzzle": "P8",
+"pos": Vector2(0.5, 0.62),
+"radius": 130,
+"label": "船长抽屉 · 压痕复原",
+"done": "抽屉已打开"
+}]
+}, {
+"id": "pier",
+"index": "VII",
+"title": "雾夜码头",
+"subtitle": "1865–1866 · 伦敦 · 收束",
+"bg": "res://assets/ui/bg_pier.jpg",
+"hint": "灯下还有五张底片没有叠过。",
+"requires": ["P7", "P8", "P9"],
+"hotspots": [{
+"puzzle": "P10",
+"pos": Vector2(0.5, 0.58),
+"radius": 140,
+"label": "灯下 · 五张底片",
+"done": "底片已叠齐"
+}]
+}]
+puzzles = [{
+"id": "P0",
+"kind": "wushu",
+"scene": "alley",
+"title": "后巷 · 三拍",
+"card": "",
+"restore": 0.04,
+"params": {
+"prompt": "三个醉汉围住木箱。萧没有拔刀——先看清他们的来路。",
+"hint": "威胁线进入铜环时，点对应方向格挡；四拍之后选一招制住为首的人。",
+"beats": 4,
+"lanes": [0, 2, 1, 0],
+"moves": [{
+"id": "reverse",
+"label": "反剪手腕"
+}, {
+"id": "sweep",
+"label": "扫堂绊腿"
+}, {
+"id": "staff",
+"label": "横杖压肩"
+}],
+"correct_move": "reverse",
+"result": "为首的人被反剪手腕按在积水里。萧收杖，先问箱子，不问人。亚瑟第一次听见有人用耳朵清点证据。",
+"next_hint": "阁楼的灯还亮着。"
+}
+}, {
+"id": "P1",
+"kind": "field",
+"scene": "attic",
+"title": "遗产清单",
+"card": "card_telegraph_1855",
+"restore": 0.06,
+"params": {
+"mode": "find_all",
+"bg": "res://assets/ui/bg_attic.jpg",
+"flatlay": "res://assets/ui/flatlay_relics.jpg",
+"eyebrow": "实物 · INHERITANCE",
+"prompt": "父亲留下的遗产清单只列六件。桌上的东西不止六件——把清单上的六件逐一点出。",
+"clue": "清单：黄铜怀表 1843 · 六分仪 · 航海日志 1855 · 未拆信件 · 船用罗盘 · 铅封铁盒（勿启）",
+"items": [{
+"name": "黄铜怀表",
+"pos": Vector2(0.18, 0.15),
+"ok": true
+}, {
+"name": "黄铜六分仪",
+"pos": Vector2(0.5, 0.14),
+"ok": true
+}, {
+"name": "航海日志",
+"pos": Vector2(0.84, 0.15),
+"ok": true
+}, {
+"name": "未拆信件",
+"pos": Vector2(0.18, 0.49),
+"ok": true
+}, {
+"name": "黄铜望远镜",
+"pos": Vector2(0.5, 0.49),
+"ok": false
+}, {
+"name": "海军短剑",
+"pos": Vector2(0.84, 0.49),
+"ok": false
+}, {
+"name": "船用罗盘",
+"pos": Vector2(0.17, 0.81),
+"ok": true
+}, {
+"name": "墨水瓶",
+"pos": Vector2(0.5, 0.81),
+"ok": false
+}, {
+"name": "铅封铁盒",
+"pos": Vector2(0.84, 0.81),
+"ok": true
+}],
+"result_title": "信封里的电报誊录",
+"result": "六件遗物出账。未拆信件里掉出一张电报誊录：落款 1855 年 11 月，发送局却是 1858 年才开业的伦敦中央电报局。父亲为什么留着一封不可能发出的电报？"
+}
+}, {
+"id": "P2",
+"kind": "align",
+"scene": "attic",
+"title": "窗台航图",
+"card": "card_chart_splice",
+"restore": 0.06,
+"params": {
+"base": "res://assets/ui/chart_base.jpg",
+"trace": "res://assets/ui/chart_trace.jpg",
+"target": Vector2(700, 780),
+"start": Vector2(30, 440),
+"tolerance": 64.0,
+"eyebrow": "校图 · FIRST ALIGNMENT",
+"prompt": "把父亲的航记描图纸叠上古海图，找出四份残片共同的空白岛位。",
+"result": "描图纸压住旧针脚。四份不同来源的海图在同一处留空——不是画错，是有人刻意不画。"
+}
+}, {
+"id": "P3",
+"kind": "develop",
+"scene": "attic",
+"title": "暗房首显",
+"card": "card_plate_press",
+"restore": 0.06,
+"params": {
+"plate": "res://assets/ui/plate_negative.jpg",
+"eyebrow": "显影 · FIRST PLATE",
+"prompt": "擦拭底片，让乳剂下的海岸线与背印一起浮出。",
+"result": "显影到一半，底片背面浮出一行反字：『此图勿寄伦敦。——H.』"
+}
+}, {
+"id": "P4",
+"kind": "field",
+"scene": "society",
+"title": "旁听席座位",
+"card": "card_rayn_dissent",
+"restore": 0.06,
+"params": {
+"mode": "pick_one",
+"bg": "res://assets/ui/bg_society.jpg",
+"eyebrow": "实物 · THE BENCHES",
+"prompt": "借阅簿最后一次被带出，是在赫胥黎与反对派吵得最凶的那晚。坐在『敌营』过道边的人是谁？",
+"clue": "线索：① 不坐首排，也不坐末排；② 靠过道；③ 右手边的座位空着；④ 煤气灯在右墙。",
+"rows": 4,
+"cols": 6,
+"aisle_after": 3,
+"correct": "D3",
+"result_title": "边栏里的红铅笔",
+"result": "D3 的座位缝里塞着半张《泰晤士报》边栏：『把四份不相干的海图拼在一起，只能证明拼图者的手艺。』背面是父亲的铅笔字：他说得对。"
+}
+}, {
+"id": "P5",
+"kind": "field",
+"scene": "warehouse",
+"title": "三箱海邮包",
+"card": "card_ledger_name",
+"restore": 0.06,
+"params": {
+"mode": "crate_sum",
+"bg": "res://assets/ui/bg_warehouse.jpg",
+"eyebrow": "实物 · MANIFEST",
+"prompt": "提单：寄往萨加尔号的海邮包共三箱，合计七十二长担。按重量选出这三箱。",
+"clue": "六只货箱的重量已用白漆刷在侧面。多一担少一担，船都不收。",
+"pick": 3,
+"target": 72,
+"crates": [{
+"label": "A",
+"weight": 14,
+"pos": Vector2(0.24, 0.4)
+}, {
+"label": "B",
+"weight": 18,
+"pos": Vector2(0.5, 0.4)
+}, {
+"label": "C",
+"weight": 22,
+"pos": Vector2(0.76, 0.4)
+}, {
+"label": "D",
+"weight": 26,
+"pos": Vector2(0.24, 0.56)
+}, {
+"label": "E",
+"weight": 30,
+"pos": Vector2(0.5, 0.56)
+}, {
+"label": "F",
+"weight": 36,
+"pos": Vector2(0.76, 0.56)
+}],
+"result_title": "收件人 H. Grey",
+"result": "三箱吊上秤，合计七十二长担。箱底夹层里翻出一张提单副本：收件人 H. Grey，笔迹是父亲的，墨里的盐渍和遗物同源。父亲在死后还在寄东西——或者有人用他的手寄。"
+}
+}, {
+"id": "P6",
+"kind": "field",
+"scene": "deck",
+"title": "四文明图件",
+"card": "",
+"restore": 0.05,
+"params": {
+"mode": "pair",
+"bg": "res://assets/ui/bg_sagar_deck.jpg",
+"eyebrow": "校图 · FOUR TRADITIONS",
+"prompt": "图廊里摊着四份图件。只有两张画的是同一段海岸——找出它们。",
+"clue": "先看注记法：纸草与泥板都以『左起第三道潮痕』为基准。",
+"fragments": [{
+"id": "papyrus",
+"name": "纸草航路注记",
+"note": "左起第三道潮痕",
+"texture": "res://assets/ui/chart_trace.jpg",
+"region": Rect2(0, 300, 1080, 800),
+"tint": Color(0.88, 0.76, 0.5, 1)
+}, {
+"id": "stick",
+"name": "波利尼西亚藤条海图",
+"note": "结数 7-3-7",
+"texture": "res://assets/ui/trace_tracks.jpg",
+"region": Rect2(0, 420, 1080, 800),
+"tint": Color(0.6, 0.78, 0.68, 1)
+}, {
+"id": "quipu",
+"name": "安第斯奇普残绺",
+"note": "结数 7-3-7",
+"texture": "res://assets/ui/chart_base.jpg",
+"region": Rect2(70, 260, 940, 700),
+"tint": Color(0.9, 0.82, 0.66, 1)
+}, {
+"id": "tablet",
+"name": "两河泥板残片",
+"note": "左起第三道潮痕",
+"texture": "res://assets/ui/chart_trace.jpg",
+"region": Rect2(0, 940, 1080, 800),
+"tint": Color(0.68, 0.74, 0.86, 1)
+}],
+"correct": ["papyrus", "tablet"],
+"result_title": "同一段海岸",
+"result": "两张残片的岸线在灯下咬合。埃及的纸草与两河的泥板，相隔三千年，却把第三道潮痕画在同一个位置。"
+}
+}, {
+"id": "P7",
+"kind": "field",
+"scene": "deck",
+"title": "测深修正",
+"card": "",
+"restore": 0.05,
+"params": {
+"mode": "dial",
+"bg": "res://assets/ui/bg_sagar_deck.jpg",
+"eyebrow": "时标 · SOUNDING",
+"prompt": "测深绳读数四十拓，绳与铅垂线夹角三十度。把修正后的垂直深度记入航海日志。",
+"clue": "水手笔记：垂直深度 = 读数 × cos 夹角。cos 30° ≈ 0.866。",
+"min": 20,
+"max": 50,
+"step": 1,
+"reading": 40,
+"target": 35,
+"tolerance": 1,
+"unit": "拓",
+"result_title": "日志上的浅点",
+"result": "三十五拓。海图在这里标的是四千米洋盆，测深绳却只放出三十五拓。亚瑟把读数抄了两遍——第二遍手在抖。"
+}
+}, {
+"id": "P8",
+"kind": "field",
+"scene": "cabin",
+"title": "抽屉压痕",
+"card": "",
+"restore": 0.05,
+"params": {
+"mode": "sequence",
+"bg": "res://assets/ui/bg_cabin.jpg",
+"eyebrow": "实物 · THE DRAWER",
+"prompt": "日方索赔文书的压痕留在抽屉底板。按压痕深浅复原三个铜扣的开启顺序。",
+"clue": "压痕：左扣浅而长（最先）；右扣深且单（其次）；中扣双痕（最后）。",
+"latches": [{
+"label": "左扣",
+"pos": Vector2(0.3, 0.6)
+}, {
+"label": "中扣",
+"pos": Vector2(0.5, 0.6)
+}, {
+"label": "右扣",
+"pos": Vector2(0.7, 0.6)
+}],
+"correct": [0, 2, 1],
+"result_title": "压痕里的十二海里",
+"result": "抽屉弹开，里面是一份日方索赔文书副本。坐标栏的墨迹被压出凹痕：与父亲航记的偏差，正好十二海里。"
+}
+}, {
+"id": "P9",
+"kind": "align",
+"scene": "deck",
+"title": "三条航迹",
+"card": "card_sagar_note",
+"restore": 0.07,
+"params": {
+"base": "res://assets/ui/chart_base.jpg",
+"trace": "res://assets/ui/trace_tracks.jpg",
+"target": Vector2(560, 1160),
+"start": Vector2(70, 300),
+"focus": Vector2(0.52, 0.66),
+"tolerance": 48.0,
+"eyebrow": "校图 · THREE TRACKS",
+"prompt": "三条测量航迹来自三个年份。把它们叠在海图上，看看岛每次差在哪里。",
+"result": "三条航迹没有相交于岛，而是相交于岛外十二海里处。不是海图错了，是每一次测量都被人为挪了同样的距离。"
+}
+}, {
+"id": "P10",
+"kind": "stack",
+"scene": "pier",
+"title": "灯下五张底片",
+"card": "card_plate_stack",
+"restore": 0.1,
+"params": {
+"bg": "res://assets/ui/bg_pier.jpg",
+"eyebrow": "显影 · FIVE PLATES",
+"prompt": "把五张底片依次压到灯下。它们是十一年里五个港口拍到的同一片海。",
+"hint": "拖到底片灯上松手；五张叠齐，影像才会显色。",
+"plates": [{
+"label": "1855",
+"tint": Color(0.78, 0.68, 0.5, 1)
+}, {
+"label": "1858",
+"tint": Color(0.6, 0.7, 0.72, 1)
+}, {
+"label": "1861",
+"tint": Color(0.72, 0.6, 0.56, 1)
+}, {
+"label": "1864",
+"tint": Color(0.58, 0.66, 0.6, 1)
+}, {
+"label": "1866",
+"tint": Color(0.7, 0.64, 0.5, 1)
+}],
+"result_title": "取景框外的人",
+"result": "五张底片在灯下叠成一个点。彩色从灯芯涨开时，底片边缘浮出一顶礼帽的剪影——他一直站在取景框外，看着同一片海。"
+}
+}]

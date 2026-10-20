@@ -17,6 +17,7 @@ boot_splash/show_image=false
 GameState="*res://scripts/autoload/game_state.gd"
 Palette="*res://scripts/autoload/palette.gd"
 Archive="*res://scripts/autoload/archive.gd"
+Chapter="*res://scripts/autoload/chapter.gd"
 
 [display]
 

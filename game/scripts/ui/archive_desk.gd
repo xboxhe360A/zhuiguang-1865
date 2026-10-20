@@ -2,10 +2,9 @@ extends Control
 ## 1905 档案桌 hub：章节入口、读档与进度概览。
 
 const DOSSIER_ID := "dossier_wudu"
-const SCENE_PATH := "res://scenes/scene_view.tscn"
+const SCENE_PATH := "res://scenes/chapter_index.tscn"
 const RITUAL_PATH := "res://scenes/ritual.tscn"
 const SAVE_PATH := "user://save.json"
-const RITUAL_REQUIRED_CARDS: Array[String] = ["card_chart_splice", "card_plate_press"]
 
 @onready var progress_label: Label = %ProgressLabel
 @onready var enter_button: Button = %BtnEnter
@@ -29,7 +28,7 @@ func _ready() -> void:
 	if "--demo-enter" in args:
 		_on_enter_pressed.call_deferred()
 	elif "--demo-ready" in args:
-		for card_id in RITUAL_REQUIRED_CARDS:
+		for card_id in Chapter.required_cards():
 			GameState.collect_evidence(card_id, 10)
 		_refresh()
 
@@ -70,10 +69,7 @@ func _refresh() -> void:
 		_verdict_text(verdict) if not verdict.is_empty() else "未裁定",
 	]
 	enter_button.text = "继续卷宗" if got > 0 or not verdict.is_empty() else "打开卷宗"
-	var ready_to_seal := verdict.is_empty()
-	for card_id in RITUAL_REQUIRED_CARDS:
-		ready_to_seal = ready_to_seal and GameState.has_evidence(card_id)
-	ritual_button.visible = ready_to_seal
+	ritual_button.visible = verdict.is_empty() and Chapter.chapter_ready()
 	load_button.disabled = not FileAccess.file_exists(SAVE_PATH)
 
 

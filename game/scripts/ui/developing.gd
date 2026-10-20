@@ -1,8 +1,6 @@
 extends Control
-## 暗房显影：按住底片来回擦拭，乳剂下的影像与背印一起浮出。
+## 暗房显影：按住底片来回擦拭，乳剂下的影像与背印一起浮出。参数来自章节目录。
 
-const DOSSIER_ID := "dossier_wudu"
-const CARD_ID := "card_plate_press"
 const SCENE_PATH := "res://scenes/scene_view.tscn"
 
 @onready var plate: DevelopingPlate = %Plate
@@ -10,6 +8,8 @@ const SCENE_PATH := "res://scenes/scene_view.tscn"
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var percent_label: Label = %PercentLabel
 @onready var hint_label: Label = %HintLabel
+@onready var ribbon_label: Label = %RibbonLabel
+@onready var result_eyebrow: Label = %ResultEyebrow
 @onready var back_button: Button = %BtnBack
 @onready var result: Control = %Result
 @onready var result_title: Label = %ResultTitle
@@ -17,16 +17,33 @@ const SCENE_PATH := "res://scenes/scene_view.tscn"
 @onready var result_body: RichTextLabel = %ResultBody
 @onready var return_button: Button = %BtnReturn
 
+var _puzzle: Dictionary = {}
+var _params: Dictionary = {}
 var _progress := 0.0
 var _finished := false
 
 
 func _ready() -> void:
+	_puzzle = Chapter.puzzle_def(GameState.current_puzzle_id)
+	if _puzzle.is_empty():
+		_puzzle = Chapter.puzzle_def("P3")
+	_params = _puzzle.get("params", {})
+	_apply_params()
 	surface.rubbed.connect(_on_rubbed)
 	back_button.pressed.connect(_return_to_scene)
 	return_button.pressed.connect(_return_to_scene)
 	set_progress(0.0)
 	_apply_debug_args()
+
+
+func _apply_params() -> void:
+	var plate_path := str(_params.get("plate", "res://assets/ui/plate_negative.jpg"))
+	var texture := load(plate_path) as Texture2D
+	if texture != null:
+		plate.texture = texture
+	ribbon_label.text = "序卷 · 雾都    ｜    暗房    ｜    %s" % str(_puzzle.get("title", "湿版显影"))
+	result_eyebrow.text = str(_params.get("eyebrow", "显影 · DEVELOPED"))
+	hint_label.text = str(_params.get("prompt", "按住底片来回擦拭，让乳剂下的影像浮出"))
 
 
 func get_progress() -> float:
@@ -61,24 +78,24 @@ func _finish() -> void:
 		return
 	_finished = true
 	surface.set_interactive(false)
-	_collect()
+	var puzzle_id := str(_puzzle.get("id", ""))
+	if not puzzle_id.is_empty():
+		Chapter.complete_puzzle(puzzle_id)
+	GameState.save_to()
 	await get_tree().create_timer(0.45).timeout
 	_show_result()
 
 
-func _collect() -> void:
-	var card := Archive.get_card(CARD_ID)
-	GameState.collect_evidence(CARD_ID, card.weight if card != null else 10)
-	Palette.restore_with_stamp(0.12)
-	GameState.save_to()
-
-
 func _show_result() -> void:
-	var card := Archive.get_card(CARD_ID)
+	var card := Archive.get_card(str(_puzzle.get("card", "")))
+	var extra := str(_params.get("result", ""))
 	if card != null:
 		result_title.text = card.title
-		result_body.text = card.body + "\n\n乳剂里的海岸线浮出来时，那行反字也从底片背面透上来。显影盘里的水晃了一下，像有人刚刚离开。"
-	var dossier := Archive.get_dossier(DOSSIER_ID)
+		result_body.text = "%s\n\n%s" % [card.body, extra]
+	else:
+		result_title.text = str(_params.get("result_title", _puzzle.get("title", "显影完成")))
+		result_body.text = extra
+	var dossier := Archive.get_dossier(GameState.current_dossier_id)
 	var got := 0
 	if dossier != null:
 		for c in dossier.evidence:

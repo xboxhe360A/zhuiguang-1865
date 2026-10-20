@@ -6,6 +6,7 @@ signal moved(center: Vector2)
 signal released(center: Vector2)
 
 var drag_bounds := Rect2(0.0, 0.0, 1080.0, 1920.0)
+var focus_ratio := Vector2(0.5, 0.5)
 var _dragging := false
 var _interactive := true
 var _grab_offset := Vector2.ZERO
@@ -16,7 +17,7 @@ func _ready() -> void:
 
 
 func center_global() -> Vector2:
-	return global_position + size * 0.5
+	return global_position + size * focus_ratio
 
 
 func set_interactive(value: bool) -> void:
@@ -27,7 +28,7 @@ func set_interactive(value: bool) -> void:
 
 
 func snap_center(global_center: Vector2) -> void:
-	global_position = global_center - size * 0.5
+	global_position = global_center - size * focus_ratio
 	moved.emit(center_global())
 
 
