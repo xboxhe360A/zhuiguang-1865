@@ -1,12 +1,16 @@
 extends Control
-## 现场屏：饱和度底图 + 铜环热区 + 舷窗器物栏 + 证据卡浮层。
+## 现场屏：饱和度底图 + 两处疑点热区 + 舷窗器物栏 + 证据卡浮层。
 
 const DOSSIER_ID := "dossier_wudu"
-const SCENE_CARD_ID := "card_plate_press"
+const PLATE_CARD_ID := "card_plate_press"
+const CHART_CARD_ID := "card_chart_splice"
 const DESK_PATH := "res://scenes/archive_desk.tscn"
+const DEVELOPING_PATH := "res://scenes/developing.tscn"
+const LIGHT_TABLE_PATH := "res://scenes/light_table.tscn"
 
 @onready var ribbon_label: Label = %RibbonLabel
-@onready var hotspot: Button = %Hotspot
+@onready var plate_hotspot: Button = %HotspotPlate
+@onready var chart_hotspot: Button = %HotspotChart
 @onready var hint: Label = %Hint
 @onready var portholes: HBoxContainer = %Portholes
 @onready var sheet: Control = %EvidenceSheet
@@ -21,13 +25,15 @@ const DESK_PATH := "res://scenes/archive_desk.tscn"
 @onready var toast_timer: Timer = %ToastTimer
 
 var _card: EvidenceCard
-var _pulse: Tween
+var _plate_pulse: Tween
+var _chart_pulse: Tween
 var _collected_cards: Array[EvidenceCard] = []
 
 
 func _ready() -> void:
 	back_button.pressed.connect(_go_back)
-	hotspot.pressed.connect(_open_scene_card)
+	plate_hotspot.pressed.connect(_enter_developing)
+	chart_hotspot.pressed.connect(_enter_light_table)
 	take_button.pressed.connect(_on_take_pressed)
 	close_button.pressed.connect(_close_sheet)
 	toast_timer.timeout.connect(func() -> void: toast.text = "")
@@ -51,20 +57,37 @@ func _refresh() -> void:
 		_collected_cards.size(),
 		dossier.evidence.size(),
 	]
-	_refresh_hotspot(GameState.has_evidence(SCENE_CARD_ID))
+	_refresh_hotspot(plate_hotspot, PLATE_CARD_ID, "底片背印")
+	_refresh_hotspot(chart_hotspot, CHART_CARD_ID, "航图拼缝")
 	_refresh_slots()
+	_refresh_hint()
 
 
-func _refresh_hotspot(collected: bool) -> void:
+func _refresh_hotspot(hotspot: Button, card_id: String, card_title: String) -> void:
+	var collected := GameState.has_evidence(card_id)
 	hotspot.disabled = collected
 	hotspot.text = "已归档" if collected else ""
+	hotspot.tooltip_text = "%s · 已归档" % card_title if collected else "%s · 待查" % card_title
 	if collected:
-		_stop_pulse()
+		_stop_pulse(hotspot)
 		hotspot.modulate.a = 1.0
-		hint.text = "底片背印已收入档案"
-	elif _pulse == null:
-		hint.text = "点击铜环 · 查看湿版底片"
-		_start_pulse()
+	elif hotspot == plate_hotspot:
+		_plate_pulse = _start_pulse(hotspot, _plate_pulse)
+	else:
+		_chart_pulse = _start_pulse(hotspot, _chart_pulse)
+
+
+func _refresh_hint() -> void:
+	var plate_done := GameState.has_evidence(PLATE_CARD_ID)
+	var chart_done := GameState.has_evidence(CHART_CARD_ID)
+	if plate_done and chart_done:
+		hint.text = "现场已清点 · 回到档案桌收尾"
+	elif chart_done:
+		hint.text = "墙上航图已校合 · 台下底片待显影"
+	elif plate_done:
+		hint.text = "底片已归档 · 墙上航图待校合"
+	else:
+		hint.text = "铜环显影底片 · 墙上航图待校合"
 
 
 func _refresh_slots() -> void:
@@ -82,20 +105,37 @@ func _refresh_slots() -> void:
 			slot.disabled = true
 
 
-func _start_pulse() -> void:
-	_pulse = create_tween().set_loops()
-	_pulse.tween_property(hotspot, "modulate:a", 0.5, 1.1).set_trans(Tween.TRANS_SINE)
-	_pulse.tween_property(hotspot, "modulate:a", 1.0, 1.1).set_trans(Tween.TRANS_SINE)
+func _start_pulse(hotspot: Button, existing: Tween) -> Tween:
+	if existing != null:
+		return existing
+	var tween := create_tween().set_loops()
+	tween.tween_property(hotspot, "modulate:a", 0.5, 1.1).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(hotspot, "modulate:a", 1.0, 1.1).set_trans(Tween.TRANS_SINE)
+	return tween
 
 
-func _stop_pulse() -> void:
-	if _pulse != null:
-		_pulse.kill()
-		_pulse = null
+func _stop_pulse(hotspot: Button) -> void:
+	var tween := _plate_pulse if hotspot == plate_hotspot else _chart_pulse
+	if tween != null:
+		tween.kill()
+	if hotspot == plate_hotspot:
+		_plate_pulse = null
+	else:
+		_chart_pulse = null
+
+
+func _enter_developing() -> void:
+	GameState.save_to()
+	get_tree().change_scene_to_file(DEVELOPING_PATH)
+
+
+func _enter_light_table() -> void:
+	GameState.save_to()
+	get_tree().change_scene_to_file(LIGHT_TABLE_PATH)
 
 
 func _open_scene_card() -> void:
-	_open_card(Archive.get_card(SCENE_CARD_ID))
+	_open_card(Archive.get_card(PLATE_CARD_ID))
 
 
 func _open_slot(index: int) -> void:
@@ -164,7 +204,7 @@ func _apply_debug_args() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg == "--demo-open":
 			_open_scene_card()
-		elif arg == "--demo-take":
-			_open_scene_card()
-			_on_take_pressed()
-			_close_sheet()
+		elif arg == "--demo-two":
+			GameState.collect_evidence(CHART_CARD_ID, 10)
+			GameState.collect_evidence(PLATE_CARD_ID, 10)
+			_refresh()

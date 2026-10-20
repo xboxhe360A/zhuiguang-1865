@@ -3,10 +3,13 @@ extends Control
 
 const DOSSIER_ID := "dossier_wudu"
 const SCENE_PATH := "res://scenes/scene_view.tscn"
+const RITUAL_PATH := "res://scenes/ritual.tscn"
 const SAVE_PATH := "user://save.json"
+const RITUAL_REQUIRED_CARDS: Array[String] = ["card_chart_splice", "card_plate_press"]
 
 @onready var progress_label: Label = %ProgressLabel
 @onready var enter_button: Button = %BtnEnter
+@onready var ritual_button: Button = %BtnRitual
 @onready var load_button: Button = %BtnLoad
 @onready var toast: Label = %Toast
 @onready var toast_timer: Timer = %ToastTimer
@@ -14,18 +17,32 @@ const SAVE_PATH := "user://save.json"
 
 func _ready() -> void:
 	enter_button.pressed.connect(_on_enter_pressed)
+	ritual_button.pressed.connect(_on_ritual_pressed)
 	load_button.pressed.connect(_on_load_pressed)
 	toast_timer.timeout.connect(func() -> void: toast.text = "")
 	if GameState.collected.is_empty() and GameState.verdicts.is_empty() and FileAccess.file_exists(SAVE_PATH):
 		GameState.load_from()
 	_refresh()
-	if OS.is_debug_build() and "--demo-enter" in OS.get_cmdline_user_args():
+	if not OS.is_debug_build():
+		return
+	var args := OS.get_cmdline_user_args()
+	if "--demo-enter" in args:
 		_on_enter_pressed.call_deferred()
+	elif "--demo-ready" in args:
+		for card_id in RITUAL_REQUIRED_CARDS:
+			GameState.collect_evidence(card_id, 10)
+		_refresh()
 
 
 func _on_enter_pressed() -> void:
 	GameState.current_dossier_id = DOSSIER_ID
 	get_tree().change_scene_to_file(SCENE_PATH)
+
+
+func _on_ritual_pressed() -> void:
+	GameState.current_dossier_id = DOSSIER_ID
+	GameState.save_to()
+	get_tree().change_scene_to_file(RITUAL_PATH)
 
 
 func _on_load_pressed() -> void:
@@ -53,6 +70,10 @@ func _refresh() -> void:
 		_verdict_text(verdict) if not verdict.is_empty() else "未裁定",
 	]
 	enter_button.text = "继续卷宗" if got > 0 or not verdict.is_empty() else "打开卷宗"
+	var ready_to_seal := verdict.is_empty()
+	for card_id in RITUAL_REQUIRED_CARDS:
+		ready_to_seal = ready_to_seal and GameState.has_evidence(card_id)
+	ritual_button.visible = ready_to_seal
 	load_button.disabled = not FileAccess.file_exists(SAVE_PATH)
 
 

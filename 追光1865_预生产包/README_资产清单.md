@@ -39,10 +39,10 @@
 | 系统（GDD执行案） | 对应图 | 状态 |
 |---|---|---|
 | S4 现场 hotspot + 舷窗物品栏 | `ui-scene-hotspot-hud`（概念）→ `bg-darkroom-1865`（无文字实机底图） | ✅ |
-| S5 透光台校图（招牌） | `ui-light-table-chart` | ✅ |
-| S6 暗房湿版显影 | `concept-developing-reveal` | ✅ |
+| S5 透光台校图（招牌） | `ui-light-table-chart`（概念）→ `chart-base` + `chart-trace`（实机校图底） | ✅ |
+| S6 暗房湿版显影 | `concept-developing-reveal`（概念）→ `plate-negative`（实机显影底） | ✅ |
 | E 完整度调色盘（饱和度=证据完整度） | `concept-saturation-evidence` | ✅（修正版：1865 街景灰/艳对切） |
-| S8 卷间仪式 / 三声裁定 | `ui-three-voice-ritual` | ✅ |
+| S8 卷间仪式 / 三声裁定 | `ui-three-voice-ritual`（概念）→ `ritual-table`（实机裁定桌） | ✅ |
 
 ### 人物情境图（定妆锁脸不锁装 · i2i 管线）
 | 角色 | 情境 | 对应图 | 状态 |
@@ -85,11 +85,14 @@
 | Step 1 工程骨架 | ✅ | 竖屏 1080×1920 / GL Compatibility / GameState+Palette 自动加载 / headless 通过 |
 | Step 2 核心系统 | ✅ | 卷宗 `.tres` + Archive 加载、E 饱和度 shader、JSON 存档、GUT 9.7.1 单测 |
 | Step 3 档案桌+现场 | ✅ | 档案桌 hub（自动读档/章节入口）、现场 HUD（铜环热区/证据纸页/舷窗器物栏/纸带进度）、OFL 字体主题 |
-| Step 4–6 | ⏳ | 校图 / 显影 / 三声裁定 / 雾都 11 谜题垂直切片 |
+| Step 4 校图 + 显影 | ✅ | 校图台拖纸对位（实时偏差/64px 吸附）、暗房擦拭显影（噪声溶解 shader/进度条）、两处热区接驳与取证回写 |
+| Step 5 三声裁定 | ✅ | 三声印章（存真/证伪/存疑）、错声褪色重试、存疑火漆封存动画、档案桌裁定入口与判定回写 |
+| Step 6 雾都垂直切片 | ⏳ | 11 谜题 P0–P10 / 竖屏现场 / 章末仪式串联 |
 
-- 实机截图：`截图/step2-*`、`截图/step3-*`
-- 单测：19/19 通过（证据、裁定、存档、档案库、双场景启动）
+- 实机截图：`截图/step2-*`、`截图/step3-*`、`截图/step4-*`、`截图/step5-*`
+- 单测：26/26 通过（证据、裁定、存档、档案库、校图阈值、显影进度、裁定映射、四场景启动）
 - 运行：Godot 4.7.2 打开 `game/project.godot`；单测命令 `godot --headless --path game -s addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gexit`
+- 场景链：档案桌 → 现场 →（底片热区）暗房显影 /（航图热区）校图台 → 现场 → 档案桌 →（两证齐）三声裁定 → 档案桌
 
 ---
 

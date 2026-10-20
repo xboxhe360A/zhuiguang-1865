@@ -78,13 +78,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 88
+theme_override_constants/margin_top = 72
 theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 56
+theme_override_constants/margin_bottom = 32
 
 [node name="VBox" type="VBoxContainer" parent="Frame"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 18
 
 [node name="Eyebrow" type="Label" parent="Frame/VBox"]
 layout_mode = 2
@@ -202,6 +202,14 @@ custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "打开卷宗"
+
+[node name="BtnRitual" type="Button" parent="Frame/VBox/ChapterPanel/Box"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "三声裁定 · 封存本卷"
 
 [node name="Footer" type="HBoxContainer" parent="Frame/VBox"]
 layout_mode = 2

@@ -1,0 +1,329 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/light_table.gd" id="1_table"]
+[ext_resource type="Texture2D" path="res://assets/ui/chart_base.jpg" id="2_base"]
+[ext_resource type="Script" path="res://scripts/ui/saturation_rect.gd" id="3_sat"]
+[ext_resource type="Texture2D" path="res://assets/ui/chart_trace.jpg" id="4_trace"]
+[ext_resource type="Script" path="res://scripts/ui/trace_sheet.gd" id="5_sheet"]
+[ext_resource type="Script" path="res://scripts/ui/target_reticle.gd" id="6_target"]
+[ext_resource type="Script" path="res://scripts/ui/crosshair.gd" id="7_cross"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ribbon"]
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 14.0
+bg_color = Color(0.862745, 0.819608, 0.701961, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27451, 0.223529, 0.145098, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 10
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint"]
+content_margin_left = 34.0
+content_margin_top = 22.0
+content_margin_right = 34.0
+content_margin_bottom = 24.0
+bg_color = Color(0.027451, 0.0509804, 0.0588235, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72549, 0.639216, 0.384314, 0.4)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sheet"]
+content_margin_left = 44.0
+content_margin_top = 40.0
+content_margin_right = 44.0
+content_margin_bottom = 40.0
+bg_color = Color(0.898039, 0.854902, 0.74902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.333333, 0.180392, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 24
+shadow_offset = Vector2(0, 12)
+
+[node name="LightTable" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_table")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_base")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("3_sat")
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196078, 0.0470588, 0.0588235, 0.16)
+
+[node name="TraceSheet" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 30.0
+offset_top = 440.0
+offset_right = 630.0
+offset_bottom = 1506.0
+script = ExtResource("5_sheet")
+
+[node name="Paper" type="TextureRect" parent="TraceSheet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+self_modulate = Color(1, 1, 1, 0.74)
+texture = ExtResource("4_trace")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Crosshair" type="Control" parent="TraceSheet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_cross")
+
+[node name="Target" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 600.0
+offset_top = 745.0
+offset_right = 780.0
+offset_bottom = 925.0
+mouse_filter = 2
+script = ExtResource("6_target")
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 40
+
+[node name="TopRow" type="HBoxContainer" parent="TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Ribbon" type="PanelContainer" parent="TopMargin/TopRow"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ribbon")
+
+[node name="RibbonLabel" type="Label" parent="TopMargin/TopRow/Ribbon"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 0.176471, 0.117647, 1)
+theme_override_font_sizes/font_size = 24
+text = "序卷 · 雾都    ｜    校图台    ｜    航记对位"
+
+[node name="Spacer" type="Control" parent="TopMargin/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnBack" type="Button" parent="TopMargin/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "现场"
+
+[node name="HintPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -340.0
+offset_right = -64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hint")
+
+[node name="Box" type="VBoxContainer" parent="HintPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HintLabel" type="Label" parent="HintPanel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.827451, 0.729412, 1)
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 3
+text = "拖动描图纸，让纸上的十字对准脉动铜环"
+
+[node name="MetricRow" type="HBoxContainer" parent="HintPanel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MetricName" type="Label" parent="HintPanel/Box/MetricRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 24
+text = "对位偏差"
+vertical_alignment = 1
+
+[node name="OffsetLabel" type="Label" parent="HintPanel/Box/MetricRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 30
+text = "385 px"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="HintPanel/Box/MetricRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="MetricNote" type="Label" parent="HintPanel/Box/MetricRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 22
+text = "≤ 64 px 松手即校合"
+vertical_alignment = 1
+
+[node name="Result" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0117647, 0.0235294, 0.0313726, 0.72)
+
+[node name="Center" type="CenterContainer" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Result/Center"]
+custom_minimum_size = Vector2(940, 700)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sheet")
+
+[node name="Box" type="VBoxContainer" parent="Result/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Eyebrow" type="Label" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 22
+text = "校合 · ALIGNED"
+
+[node name="ResultTitle" type="Label" parent="Result/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.145098, 0.101961, 1)
+theme_override_font_sizes/font_size = 42
+autowrap_mode = 3
+text = "四文明古海图拼缝"
+
+[node name="Line" type="ColorRect" parent="Result/Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.352941, 0.278431, 0.152941, 0.45)
+
+[node name="ResultMeta" type="Label" parent="Result/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+text = "档案 WG-1865 ｜ 证据 02 / 05 ｜ 校合完成"
+
+[node name="Scroll" type="ScrollContainer" parent="Result/Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ResultBody" type="RichTextLabel" parent="Result/Center/Panel/Box/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.223529, 0.184314, 0.129412, 1)
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
+text = "描图纸上的罗盘线压住底图的旧针脚。"
+
+[node name="ResultHint" type="Label" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+text = "证据饱和度回升 · +0.12 ｜ 自动存卷"
+
+[node name="Buttons" type="HBoxContainer" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+
+[node name="BtnReturn" type="Button" parent="Result/Center/Panel/Box/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "回到现场"

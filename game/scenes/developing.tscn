@@ -1,0 +1,313 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/developing.gd" id="1_dev"]
+[ext_resource type="Texture2D" path="res://assets/ui/plate_negative.jpg" id="2_plate"]
+[ext_resource type="Script" path="res://scripts/ui/developing_plate.gd" id="3_plate_script"]
+[ext_resource type="Script" path="res://scripts/ui/develop_surface.gd" id="4_surface"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ribbon"]
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 14.0
+bg_color = Color(0.862745, 0.819608, 0.701961, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27451, 0.223529, 0.145098, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 10
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint"]
+content_margin_left = 34.0
+content_margin_top = 22.0
+content_margin_right = 34.0
+content_margin_bottom = 24.0
+bg_color = Color(0.027451, 0.0509804, 0.0588235, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72549, 0.639216, 0.384314, 0.4)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pb_bg"]
+bg_color = Color(0.0392157, 0.0705882, 0.0823529, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72549, 0.639216, 0.384314, 0.35)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pb_fill"]
+bg_color = Color(0.85098, 0.741176, 0.454902, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sheet"]
+content_margin_left = 44.0
+content_margin_top = 40.0
+content_margin_right = 44.0
+content_margin_bottom = 40.0
+bg_color = Color(0.898039, 0.854902, 0.74902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.333333, 0.180392, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 24
+shadow_offset = Vector2(0, 12)
+
+[node name="Developing" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dev")
+
+[node name="Plate" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("3_plate_script")
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196078, 0.0352941, 0.0431373, 0.2)
+
+[node name="DevelopSurface" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 170.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_surface")
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 40
+
+[node name="TopRow" type="HBoxContainer" parent="TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Ribbon" type="PanelContainer" parent="TopMargin/TopRow"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ribbon")
+
+[node name="RibbonLabel" type="Label" parent="TopMargin/TopRow/Ribbon"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 0.176471, 0.117647, 1)
+theme_override_font_sizes/font_size = 24
+text = "序卷 · 雾都    ｜    暗房    ｜    湿版显影"
+
+[node name="Spacer" type="Control" parent="TopMargin/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnBack" type="Button" parent="TopMargin/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "现场"
+
+[node name="HintPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -340.0
+offset_right = -64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hint")
+
+[node name="Box" type="VBoxContainer" parent="HintPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Row" type="HBoxContainer" parent="HintPanel/Box"]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="HintPanel/Box/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.827451, 0.729412, 1)
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 3
+text = "按住底片，来回擦过显影液"
+
+[node name="PercentLabel" type="Label" parent="HintPanel/Box/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 40
+text = "0%"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="HintPanel/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+theme_override_styles/background = SubResource("StyleBoxFlat_pb_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pb_fill")
+
+[node name="Note" type="Label" parent="HintPanel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 22
+text = "显影进度只由擦拭距离累积 · 不会倒退"
+
+[node name="Result" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0117647, 0.0235294, 0.0313726, 0.72)
+
+[node name="Center" type="CenterContainer" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Result/Center"]
+custom_minimum_size = Vector2(940, 700)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sheet")
+
+[node name="Box" type="VBoxContainer" parent="Result/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Eyebrow" type="Label" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 22
+text = "显影 · DEVELOPED"
+
+[node name="ResultTitle" type="Label" parent="Result/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.145098, 0.101961, 1)
+theme_override_font_sizes/font_size = 42
+autowrap_mode = 3
+text = "底片背印"
+
+[node name="Line" type="ColorRect" parent="Result/Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.352941, 0.278431, 0.152941, 0.45)
+
+[node name="ResultMeta" type="Label" parent="Result/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+text = "档案 WG-1865 ｜ 证据 05 / 05 ｜ 显影完成"
+
+[node name="Scroll" type="ScrollContainer" parent="Result/Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ResultBody" type="RichTextLabel" parent="Result/Center/Panel/Box/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.223529, 0.184314, 0.129412, 1)
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
+text = "乳剂里的海岸线浮出来时，那行反字也一起浮上来。"
+
+[node name="ResultHint" type="Label" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+text = "证据饱和度回升 · +0.12 ｜ 自动存卷"
+
+[node name="Buttons" type="HBoxContainer" parent="Result/Center/Panel/Box"]
+layout_mode = 2
+
+[node name="BtnReturn" type="Button" parent="Result/Center/Panel/Box/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "回到现场"

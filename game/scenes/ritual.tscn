@@ -1,0 +1,452 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/ritual.gd" id="1_ritual"]
+[ext_resource type="Texture2D" path="res://assets/ui/ritual_table.jpg" id="2_table"]
+[ext_resource type="Script" path="res://scripts/ui/saturation_rect.gd" id="3_sat"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ribbon"]
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 14.0
+bg_color = Color(0.862745, 0.819608, 0.701961, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27451, 0.223529, 0.145098, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 10
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+content_margin_left = 40.0
+content_margin_top = 32.0
+content_margin_right = 40.0
+content_margin_bottom = 34.0
+bg_color = Color(0.898039, 0.854902, 0.74902, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.333333, 0.180392, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 22
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stamp_normal"]
+bg_color = Color(0.0392157, 0.0705882, 0.0823529, 0.88)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.72549, 0.639216, 0.384314, 0.75)
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 18
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stamp_hover"]
+bg_color = Color(0.113725, 0.156863, 0.164706, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.94902, 0.784314, 0.505882, 1)
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
+shadow_color = Color(0.85098, 0.741176, 0.454902, 0.25)
+shadow_size = 24
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stamp_disabled"]
+bg_color = Color(0.0392157, 0.0705882, 0.0823529, 0.45)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72549, 0.639216, 0.384314, 0.35)
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sheet"]
+content_margin_left = 44.0
+content_margin_top = 40.0
+content_margin_right = 44.0
+content_margin_bottom = 40.0
+bg_color = Color(0.898039, 0.854902, 0.74902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.333333, 0.180392, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 24
+shadow_offset = Vector2(0, 12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wax"]
+bg_color = Color(0.443137, 0.121569, 0.133333, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.278431, 0.0705882, 0.0784314, 1)
+corner_radius_top_left = 160
+corner_radius_top_right = 160
+corner_radius_bottom_right = 160
+corner_radius_bottom_left = 160
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 30
+shadow_offset = Vector2(0, 12)
+
+[node name="Ritual" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ritual")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_table")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("3_sat")
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196078, 0.0352941, 0.0431373, 0.24)
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 40
+
+[node name="TopRow" type="HBoxContainer" parent="TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Ribbon" type="PanelContainer" parent="TopMargin/TopRow"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ribbon")
+
+[node name="RibbonLabel" type="Label" parent="TopMargin/TopRow/Ribbon"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 0.176471, 0.117647, 1)
+theme_override_font_sizes/font_size = 24
+text = "序卷 · 雾都    ｜    三声裁定    ｜    1905 档案桌"
+
+[node name="Spacer" type="Control" parent="TopMargin/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnBack" type="Button" parent="TopMargin/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "档案桌"
+
+[node name="Header" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 64.0
+offset_top = 196.0
+offset_right = -64.0
+offset_bottom = 548.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="Box" type="VBoxContainer" parent="Header"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Eyebrow" type="Label" parent="Header/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 22
+text = "三声裁定 · THREE VOICES"
+
+[node name="Title" type="Label" parent="Header/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.145098, 0.101961, 1)
+theme_override_font_sizes/font_size = 42
+autowrap_mode = 3
+text = "在封皮上留下最后一道声音"
+
+[node name="SummaryLabel" type="Label" parent="Header/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 24
+text = "已归档证据 0 / 5 ｜ 现下饱和 35% ｜ 三册未封"
+
+[node name="Line" type="ColorRect" parent="Header/Box"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.352941, 0.278431, 0.152941, 0.45)
+
+[node name="HintLabel" type="Label" parent="Header/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.223529, 0.184314, 0.129412, 1)
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
+text = "档案员批注：两种坐标都自洽，惟原图不见。"
+vertical_alignment = 1
+
+[node name="Choices" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -720.0
+offset_right = -64.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+theme_override_constants/separation = 30
+
+[node name="TrueBox" type="VBoxContainer" parent="Choices"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BtnTrue" type="Button" parent="Choices/TrueBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_stamp_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_stamp_normal")
+text = "存真"
+
+[node name="Caption" type="Label" parent="Choices/TrueBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.784314, 0.721569, 1)
+theme_override_font_sizes/font_size = 20
+text = "判为真实 · 存在册"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="FalseBox" type="VBoxContainer" parent="Choices"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BtnFalse" type="Button" parent="Choices/FalseBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_stamp_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_stamp_normal")
+text = "证伪"
+
+[node name="Caption" type="Label" parent="Choices/FalseBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.784314, 0.721569, 1)
+theme_override_font_sizes/font_size = 20
+text = "判为伪造 · 编年册"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="DoubtBox" type="VBoxContainer" parent="Choices"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BtnDoubt" type="Button" parent="Choices/DoubtBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_stamp_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_stamp_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_stamp_normal")
+text = "存疑"
+
+[node name="Caption" type="Label" parent="Choices/DoubtBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.784314, 0.721569, 1)
+theme_override_font_sizes/font_size = 20
+text = "两说并置 · 记忆册"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Toast" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -790.0
+offset_bottom = -730.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.94902, 0.694118, 0.470588, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Seal" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="Seal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0117647, 0.0235294, 0.0313726, 0.74)
+
+[node name="Center" type="CenterContainer" parent="Seal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Seal/Center"]
+custom_minimum_size = Vector2(900, 980)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sheet")
+
+[node name="Box" type="VBoxContainer" parent="Seal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Eyebrow" type="Label" parent="Seal/Center/Panel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 24
+text = "SEALED · 记忆册"
+horizontal_alignment = 1
+
+[node name="SealRow" type="CenterContainer" parent="Seal/Center/Panel/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SealCircle" type="Control" parent="Seal/Center/Panel/Box/SealRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 2
+
+[node name="Wax" type="Panel" parent="Seal/Center/Panel/Box/SealRow/SealCircle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wax")
+
+[node name="Glyph" type="Label" parent="Seal/Center/Panel/Box/SealRow/SealCircle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.898039, 0.804902, 0.648039, 0.92)
+theme_override_font_sizes/font_size = 132
+text = "疑"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SealTitle" type="Label" parent="Seal/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.145098, 0.101961, 1)
+theme_override_font_sizes/font_size = 44
+text = "已封存 · 记忆册"
+horizontal_alignment = 1
+
+[node name="SealBody" type="Label" parent="Seal/Center/Panel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.223529, 0.184314, 0.129412, 1)
+theme_override_font_sizes/font_size = 28
+text = "本卷不判真伪。两种可能一并收入记忆册，留待后来者翻到这一页。"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BtnDesk" type="Button" parent="Seal/Center/Panel/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "回到档案桌"
+
+[node name="ToastTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
+one_shot = true

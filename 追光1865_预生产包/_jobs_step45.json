@@ -1,0 +1,22 @@
+[
+  {
+    "name": "chart-base",
+    "ratio": "9:16",
+    "prompt": "Top-down antique hydrographic chart on a pale blue glass light table, vertical 9:16. Aged paper with faint island outlines, rhumb lines, compass roses, depth-sounding marks and a faint blank coordinate grid. Absolutely no text, no letters, no numbers, no labels, no logos. Painterly documentary realism, cyanotype blue and sepia inks, soft backlight glow, high detail"
+  },
+  {
+    "name": "chart-trace",
+    "ratio": "9:16",
+    "prompt": "A sheet of translucent tracing paper photographed flat from directly above on a pure white background, vertical 9:16. Faint hand-drawn coastline outlines and intersecting rhumb lines in thin dark sepia ink, one small compass rose, plenty of empty paper. Absolutely no text, no letters, no numbers, no labels. High contrast thin ink lines, even lighting, painterly"
+  },
+  {
+    "name": "plate-negative",
+    "ratio": "9:16",
+    "prompt": "An 1865 wet-plate glass negative lying in a shallow dark developing tray, photographed from a high angle, vertical 9:16. A faint photographic image of a coastline and nautical marks emerging in the emulsion, cyan and sepia tones, chemical stains and silver highlights, dark wooden table. Absolutely no text, no letters, no numbers, no labels, no hands. Painterly photographic realism, cinematic, high detail"
+  },
+  {
+    "name": "ritual-table",
+    "ratio": "9:16",
+    "prompt": "Top-down dark archive table prepared for a verdict ritual, vertical 9:16. Three blank white evidence cards fanned in the center of deep blue velvet, three ornate brass seal stamps arranged below them, two lit candles at the edges, dark wooden desk and scattered documents. Absolutely no text, no letters, no numbers, no labels, no hands. Painterly documentary realism, candlelight and deep teal shadows, high detail"
+  }
+]
