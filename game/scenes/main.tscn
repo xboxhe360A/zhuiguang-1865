@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_screen.gd" id="1_main"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="Bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0549, 0.0902, 0.1098, 1)
+
+[node name="Frame" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_top = 96
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 96
+
+[node name="VBox" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Title" type="Label" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.909804, 0.827451, 0.627451, 1)
+theme_override_font_sizes/font_size = 76
+text = "追光 1865"
+
+[node name="Subtitle" type="Label" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 34
+text = "档案桌 · Step 1 骨架"
+
+[node name="Divider" type="HSeparator" parent="Frame/VBox"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="Frame/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.741176, 0.776471, 0.741176, 1)
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 3
+text = "初始化…"
