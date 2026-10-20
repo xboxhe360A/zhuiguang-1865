@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_sagar_note"
+title = "萨加尔号航次摘记"
+body = "英国海军测量船萨加尔号 1866 年航次摘记抄件：官方记录里，岛的唯一边体是那条『据报』本身。"
+voice = "editor"
+weight = 10
+unlocks_entry_id = "entry_sagar"

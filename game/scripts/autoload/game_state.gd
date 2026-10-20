@@ -1,5 +1,5 @@
 extends Node
-## 全局档案状态：证据收集、三册裁定、完整度。存档为 JSON，正式数据后续由 .tres 驱动。
+## 全局档案状态：证据收集、三册裁定、完整度。存档为 JSON，正式数据由 Archive 载入 .tres。
 
 signal evidence_collected(card_id: String)
 signal verdict_recorded(dossier_id: String, verdict: String)
@@ -52,6 +52,7 @@ func save_to(path: String = "user://save.json") -> Error:
 		"collected": collected.keys(),
 		"verdicts": verdicts,
 		"completeness": completeness,
+		"saturation": Palette.saturation,
 	}
 	file.store_string(JSON.stringify(data, "\t"))
 	return OK
@@ -73,5 +74,6 @@ func load_from(path: String = "user://save.json") -> Error:
 		collected[str(id)] = true
 	verdicts = data.get("verdicts", {})
 	completeness = int(data.get("completeness", 0))
+	Palette.set_saturation(float(data.get("saturation", 0.35)))
 	completeness_changed.emit(completeness)
 	return OK

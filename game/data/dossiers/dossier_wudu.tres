@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DossierDef" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/dossier_def.gd" id="1_dossier"]
+[ext_resource type="Resource" path="res://data/cards/card_telegraph_1855.tres" id="2_c1"]
+[ext_resource type="Resource" path="res://data/cards/card_chart_splice.tres" id="3_c2"]
+[ext_resource type="Resource" path="res://data/cards/card_rayn_dissent.tres" id="4_c3"]
+[ext_resource type="Resource" path="res://data/cards/card_sagar_note.tres" id="5_c4"]
+
+[resource]
+script = ExtResource("1_dossier")
+id = "dossier_wudu"
+title = "雾都 · 格雷遗物"
+volume = "unfiled"
+evidence = Array[Resource]([ExtResource("2_c1"), ExtResource("3_c2"), ExtResource("4_c3"), ExtResource("5_c4")])
+puzzle_ids = PackedStringArray("P0", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10")

@@ -16,6 +16,7 @@ boot_splash/show_image=false
 
 GameState="*res://scripts/autoload/game_state.gd"
 Palette="*res://scripts/autoload/palette.gd"
+Archive="*res://scripts/autoload/archive.gd"
 
 [display]
 
@@ -26,6 +27,10 @@ window/size/window_height_override=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 window/handheld/orientation=1
+
+[gui]
+
+theme/custom="res://theme/main_theme.tres"
 
 [rendering]
 

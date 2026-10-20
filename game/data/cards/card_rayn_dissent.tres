@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_rayn_dissent"
+title = "雷恩教授的异议"
+body = "《泰晤士报》边栏：『把四份不相干的海图拼在一起，只能证明拼图者的手艺，不能证明海图。』剪报背面有父亲铅笔字：他说得对。"
+voice = "dissent"
+is_dissent = true
+weight = 5
+unlocks_entry_id = "entry_rayn"

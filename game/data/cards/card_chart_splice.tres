@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_chart_splice"
+title = "四文明古海图拼缝"
+body = "四份不同来源的海图残片，边缘拼缝在同一条经线上，指向同一坐标。四种笔法、四种语言，却留出同一个空白岛位。"
+voice = "evidence"
+weight = 10
+unlocks_entry_id = "entry_chart_splice"

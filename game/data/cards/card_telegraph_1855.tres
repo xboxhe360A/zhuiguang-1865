@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_telegraph_1855"
+title = "错时电报誊录"
+body = "父亲 1855 年 11 月落款的电报誊录。伦敦中央电报局 1858 年才开业——这封电报不可能从伦敦发出。纸面盐渍与格雷遗物同源，时间却错开三年。"
+voice = "evidence"
+weight = 10
+unlocks_entry_id = "entry_telegraph_1855"

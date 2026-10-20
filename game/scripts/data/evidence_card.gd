@@ -7,4 +7,5 @@ extends Resource
 @export_multiline var body: String = ""
 @export_enum("evidence", "editor", "dissent") var voice: String = "evidence"
 @export var is_dissent: bool = false
+@export var weight: int = 10
 @export var unlocks_entry_id: String = ""
