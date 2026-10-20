@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvidenceCard" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/evidence_card.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = "card_plate_press"
+title = "底片背印"
+body = "湿版底片背面压印着一行反字：『此图勿寄伦敦。——H.』显影到一半才浮出来，像有人故意把它藏在乳剂下面。"
+voice = "evidence"
+weight = 10
+unlocks_entry_id = "entry_plate_press"

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "bg-archive-desk-1905",
+    "ratio": "9:16",
+    "prompt": "Environment background plate for a narrative puzzle game, vertical 9:16. A 1905 archive room desk seen from a slight three-quarter top-down angle: dark wooden desk, indigo cyanotype blotter with water stains, a stack of aged case folders on the left, sepia photographs scattered near the edges, a brass oil lamp glowing warmly, a wax seal stamp, rolled parchment. Keep the central third visually calm and empty for UI overlay. Absolutely no text, no letters, no handwriting, no labels, no logos, no people. Painterly documentary realism, muted teal and brass palette, soft warm lamp light, shallow depth of field, high detail"
+  },
+  {
+    "name": "bg-darkroom-1865",
+    "ratio": "9:16",
+    "prompt": "Environment background plate for a narrative puzzle game, vertical 9:16. An 1865 wet-plate photography darkroom interior with no people: deep red safelight glow, a wooden workbench holding a large shallow silver developing tray filled with liquid, glass plate negatives leaning against the wall, chemical bottles, hanging photographs in shadow. Keep the central area calm for UI overlay. Absolutely no text, no letters, no labels, no logos, no people. Painterly photographic realism, cinematic, high detail, muted amber and deep teal shadows"
+  }
+]

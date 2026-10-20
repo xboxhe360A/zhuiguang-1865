@@ -19,9 +19,10 @@
 ├── 剧情人物细化包_v1.md               12 档节拍表 / 贯穿钩子 / 五主角弧光 / 五声口吻规则
 ├── UI设计文档_v1.md                   全界面 diegetic 设计（S0–S10 + SH）/ 反馈音映射 / Godot 实现注
 ├── _prod.js / _jobs_*.json            Agnes 出图生产脚本与任务表（可复跑补图）
+├── 截图/                              Godot 实机截图（Step 2 系统屏 / Step 3 档案桌与现场）
 └── 图片/
     ├── 正典/                          16 张已定稿资产（定妆 / 风格锚 / 主视觉 / 场景底 / 管线验证）
-    └── （本轮新增 10 张，见下表）
+    └── （本轮新增 12 张，见下表）
 ```
 
 ---
@@ -31,13 +32,13 @@
 ### 启动与主界面
 | 界面（UI文档） | 对应图 | 状态 |
 |---|---|---|
-| S0 启动 / S1 档案桌 hub | `ui-archive-desk-1905` | ✅ |
+| S0 启动 / S1 档案桌 hub | `ui-archive-desk-1905`（概念）→ `bg-archive-desk-1905`（无文字实机底图） | ✅ |
 | S2 卷首图版 / S3 连环画 | （复用 正典/风格锚-双层制B 的漫画页语法） | ✅ |
 
 ### 现场与招牌机制
 | 系统（GDD执行案） | 对应图 | 状态 |
 |---|---|---|
-| S4 现场 hotspot + 舷窗物品栏 | `ui-scene-hotspot-hud` | ✅ |
+| S4 现场 hotspot + 舷窗物品栏 | `ui-scene-hotspot-hud`（概念）→ `bg-darkroom-1865`（无文字实机底图） | ✅ |
 | S5 透光台校图（招牌） | `ui-light-table-chart` | ✅ |
 | S6 暗房湿版显影 | `concept-developing-reveal` | ✅ |
 | E 完整度调色盘（饱和度=证据完整度） | `concept-saturation-evidence` | ✅（修正版：1865 街景灰/艳对切） |
@@ -74,6 +75,21 @@
 4. **翻开文件灰→艳**：饱和度即证据完整度，盖章回色为核心 juice 时刻。
 5. **红线**：无配音 / 无 3D / 无分支 / 无即时战斗。
 6. **字体只锁免费商用**（用户 2026-10-19 裁决）：思源宋体 SC（中文主）/ 思源黑体 SC（小字）/ IM Fell English（拉丁标题），均 SIL OFL 1.1；系统字体与"个人非商用免费"字体禁入。
+
+---
+
+## 五、制作期执行进度（Godot 4.7.2 · `game/`）
+
+| 步骤 | 状态 | 实机内容 |
+|---|---|---|
+| Step 1 工程骨架 | ✅ | 竖屏 1080×1920 / GL Compatibility / GameState+Palette 自动加载 / headless 通过 |
+| Step 2 核心系统 | ✅ | 卷宗 `.tres` + Archive 加载、E 饱和度 shader、JSON 存档、GUT 9.7.1 单测 |
+| Step 3 档案桌+现场 | ✅ | 档案桌 hub（自动读档/章节入口）、现场 HUD（铜环热区/证据纸页/舷窗器物栏/纸带进度）、OFL 字体主题 |
+| Step 4–6 | ⏳ | 校图 / 显影 / 三声裁定 / 雾都 11 谜题垂直切片 |
+
+- 实机截图：`截图/step2-*`、`截图/step3-*`
+- 单测：19/19 通过（证据、裁定、存档、档案库、双场景启动）
+- 运行：Godot 4.7.2 打开 `game/project.godot`；单测命令 `godot --headless --path game -s addons/gut/gut_cmdln.gd -gdir=res://tests/unit -gexit`
 
 ---
 

@@ -8,7 +8,7 @@ config_version=5
 
 config/name="追光1865"
 config/description="2D 伪纪录片叙事解谜 · 竖屏 1080x1920"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/archive_desk.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/show_image=false
 

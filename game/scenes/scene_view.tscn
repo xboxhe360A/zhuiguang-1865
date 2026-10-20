@@ -1,0 +1,467 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/scene_view.gd" id="1_view"]
+[ext_resource type="Texture2D" path="res://assets/ui/darkroom_plate.jpg" id="2_plate"]
+[ext_resource type="Script" path="res://scripts/ui/saturation_rect.gd" id="3_sat"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_normal"]
+bg_color = Color(0.0392157, 0.0705882, 0.0823529, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72549, 0.639216, 0.384314, 0.55)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_hover"]
+bg_color = Color(0.101961, 0.141176, 0.152941, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85098, 0.741176, 0.454902, 0.9)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_disabled"]
+bg_color = Color(0.0313726, 0.0509804, 0.0588235, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.415686, 0.454902, 0.454902, 0.35)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hotspot"]
+bg_color = Color(0.85098, 0.556863, 0.341176, 0.06)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85098, 0.556863, 0.341176, 0.95)
+corner_radius_top_left = 110
+corner_radius_top_right = 110
+corner_radius_bottom_right = 110
+corner_radius_bottom_left = 110
+shadow_color = Color(0.85098, 0.556863, 0.341176, 0.25)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hotspot_hover"]
+bg_color = Color(0.85098, 0.556863, 0.341176, 0.14)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.94902, 0.694118, 0.470588, 1)
+corner_radius_top_left = 110
+corner_radius_top_right = 110
+corner_radius_bottom_right = 110
+corner_radius_bottom_left = 110
+shadow_color = Color(0.85098, 0.556863, 0.341176, 0.4)
+shadow_size = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hotspot_disabled"]
+bg_color = Color(0.0392157, 0.0705882, 0.0823529, 0.35)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72549, 0.639216, 0.384314, 0.7)
+corner_radius_top_left = 110
+corner_radius_top_right = 110
+corner_radius_bottom_right = 110
+corner_radius_bottom_left = 110
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ribbon"]
+content_margin_left = 28.0
+content_margin_top = 14.0
+content_margin_right = 28.0
+content_margin_bottom = 14.0
+bg_color = Color(0.862745, 0.819608, 0.701961, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27451, 0.223529, 0.145098, 0.4)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 10
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inventory"]
+content_margin_left = 30.0
+content_margin_top = 18.0
+content_margin_right = 30.0
+content_margin_bottom = 24.0
+bg_color = Color(0.027451, 0.0509804, 0.0588235, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72549, 0.639216, 0.384314, 0.35)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sheet"]
+content_margin_left = 44.0
+content_margin_top = 40.0
+content_margin_right = 44.0
+content_margin_bottom = 40.0
+bg_color = Color(0.898039, 0.854902, 0.74902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.333333, 0.180392, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 24
+shadow_offset = Vector2(0, 12)
+
+[node name="SceneView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_view")
+
+[node name="Plate" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_plate")
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("3_sat")
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196078, 0.0352941, 0.0431373, 0.22)
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 40
+
+[node name="TopRow" type="HBoxContainer" parent="TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Ribbon" type="PanelContainer" parent="TopMargin/TopRow"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ribbon")
+
+[node name="RibbonLabel" type="Label" parent="TopMargin/TopRow/Ribbon"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 0.176471, 0.117647, 1)
+theme_override_font_sizes/font_size = 24
+text = "序卷 · 雾都    ｜    现场 · 暗房    ｜    证据 0 / 5"
+
+[node name="Spacer" type="Control" parent="TopMargin/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BtnBack" type="Button" parent="TopMargin/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "档案桌"
+
+[node name="Hint" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.70
+anchor_right = 1.0
+anchor_bottom = 0.74
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85098, 0.827451, 0.729412, 1)
+theme_override_font_sizes/font_size = 26
+text = "点击铜环 · 查看湿版底片"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Toast" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_top = 0.66
+anchor_right = 1.0
+anchor_bottom = 0.70
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hotspot" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.54
+anchor_top = 0.61
+anchor_right = 0.54
+anchor_bottom = 0.61
+offset_left = -110.0
+offset_top = -110.0
+offset_right = 110.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_colors/font_disabled_color = Color(0.85098, 0.741176, 0.454902, 0.95)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/hover = SubResource("StyleBoxFlat_hotspot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hotspot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_hotspot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hotspot")
+
+[node name="Inventory" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -380.0
+offset_right = -64.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_inventory")
+
+[node name="Box" type="VBoxContainer" parent="Inventory"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Inventory/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.639216, 0.678431, 1)
+theme_override_font_sizes/font_size = 22
+text = "随身器物 · INVENTORY"
+
+[node name="Portholes" type="HBoxContainer" parent="Inventory/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="Slot1" type="Button" parent="Inventory/Box/Portholes"]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_slot_normal")
+
+[node name="Slot2" type="Button" parent="Inventory/Box/Portholes"]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_slot_normal")
+
+[node name="Slot3" type="Button" parent="Inventory/Box/Portholes"]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_slot_normal")
+
+[node name="Slot4" type="Button" parent="Inventory/Box/Portholes"]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_slot_normal")
+
+[node name="Slot5" type="Button" parent="Inventory/Box/Portholes"]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+size_flags_vertical = 4
+disabled = true
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.454902, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slot_disabled")
+theme_override_styles/normal = SubResource("StyleBoxFlat_slot_normal")
+
+[node name="EvidenceSheet" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="EvidenceSheet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.0117647, 0.0235294, 0.0313726, 0.72)
+
+[node name="Center" type="CenterContainer" parent="EvidenceSheet"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SheetPanel" type="PanelContainer" parent="EvidenceSheet/Center"]
+custom_minimum_size = Vector2(940, 660)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sheet")
+
+[node name="Box" type="VBoxContainer" parent="EvidenceSheet/Center/SheetPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="EvidenceSheet/Center/SheetPanel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SheetTitle" type="Label" parent="EvidenceSheet/Center/SheetPanel/Box/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.180392, 0.145098, 0.101961, 1)
+theme_override_font_sizes/font_size = 42
+autowrap_mode = 3
+text = "底片背印"
+
+[node name="SheetVoice" type="Label" parent="EvidenceSheet/Center/SheetPanel/Box/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.454902, 0.376471, 0.196078, 1)
+theme_override_font_sizes/font_size = 22
+text = "物证 · EVIDENCE"
+
+[node name="Line" type="ColorRect" parent="EvidenceSheet/Center/SheetPanel/Box"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.352941, 0.278431, 0.152941, 0.45)
+
+[node name="SheetMeta" type="Label" parent="EvidenceSheet/Center/SheetPanel/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+text = "档案 WG-1865 ｜ 卡片 01 / 05"
+
+[node name="Scroll" type="ScrollContainer" parent="EvidenceSheet/Center/SheetPanel/Box"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SheetBody" type="RichTextLabel" parent="EvidenceSheet/Center/SheetPanel/Box/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.223529, 0.184314, 0.129412, 1)
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
+text = "湿版底片背面压印着一行反字。"
+
+[node name="SheetSource" type="Label" parent="EvidenceSheet/Center/SheetPanel/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.34902, 0.207843, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 2
+text = "辑录：伦敦 · 格雷遗物阁楼 ｜ 1905 年重抄"
+
+[node name="Buttons" type="HBoxContainer" parent="EvidenceSheet/Center/SheetPanel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BtnClose" type="Button" parent="EvidenceSheet/Center/SheetPanel/Box/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 84)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "合上"
+
+[node name="BtnTake" type="Button" parent="EvidenceSheet/Center/SheetPanel/Box/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "收入档案"
+
+[node name="ToastTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
+one_shot = true
