@@ -36,6 +36,7 @@ var _pulses: Array[Tween] = []
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_field")
 	GameState.current_dossier_id = DOSSIER_ID
 	back_button.pressed.connect(_go_back)
 	take_button.pressed.connect(_on_take_pressed)
@@ -72,8 +73,8 @@ func _refresh() -> void:
 	_build_hotspots()
 	_refresh_hint()
 	_refresh_slots()
-	ribbon_label.text = "序卷 · 雾都    ｜    %s    ｜    证据 %d / %d" % [
-		str(_scene.get("title", "")),
+	ribbon_label.text = tr("序卷 · 雾都    ｜    %s    ｜    证据 %d / %d") % [
+		tr(str(_scene.get("title", ""))),
 		_collected_cards.size(),
 		Archive.get_dossier(DOSSIER_ID).evidence.size(),
 	]
@@ -175,6 +176,7 @@ func _start_pulse(hotspot: Button) -> Tween:
 
 
 func _on_hotspot_pressed(hotspot: Dictionary, puzzle: Dictionary) -> void:
+	Audio.play("paper", -7.0)
 	var puzzle_id := str(puzzle.get("id", ""))
 	if Chapter.is_done(puzzle_id):
 		var card_id := str(puzzle.get("card", ""))
@@ -209,9 +211,9 @@ func _refresh_hint() -> void:
 	if remaining.is_empty():
 		hint.text = "现场已清点 · 回卷宗目录继续"
 	elif remaining.size() == 1:
-		hint.text = "还有 1 处待查 ｜ %s" % remaining[0]
+		hint.text = tr("还有 1 处待查 ｜ %s") % tr(remaining[0])
 	else:
-		hint.text = "还有 %d 处待查 ｜ %s" % [remaining.size(), " · ".join(remaining)]
+		hint.text = tr("还有 %d 处待查 ｜ %s") % [remaining.size(), " · ".join(remaining.map(func(item: String) -> String: return tr(item)))]
 
 
 func _refresh_slots() -> void:
@@ -253,13 +255,13 @@ func _open_card(card: EvidenceCard) -> void:
 	if card == null:
 		return
 	_card = card
-	sheet_title.text = card.title
-	sheet_voice.text = _voice_text(card.voice)
-	sheet_body.text = card.body
-	sheet_source.text = "辑录：%s ｜ 1905 年重抄" % str(_scene.get("title", "现场"))
+	sheet_title.text = tr(card.title)
+	sheet_voice.text = tr(_voice_text(card.voice))
+	sheet_body.text = tr(card.body)
+	sheet_source.text = tr("辑录：%s ｜ 1905 年重抄") % tr(str(_scene.get("title", "现场")))
 	var cards := Archive.cards_for(DOSSIER_ID)
 	var card_index := cards.find(card)
-	sheet_meta.text = "档案 WG-1865 ｜ 卡片 %02d / %02d" % [card_index + 1, cards.size()]
+	sheet_meta.text = tr("档案 WG-1865 ｜ 卡片 %02d / %02d") % [card_index + 1, cards.size()]
 	var collected := GameState.has_evidence(card.id)
 	take_button.disabled = collected
 	take_button.text = "已归档" if collected else "收入档案"
@@ -277,6 +279,7 @@ func _on_take_pressed() -> void:
 	if _card == null or GameState.has_evidence(_card.id):
 		return
 	GameState.collect_evidence(_card.id, _card.weight)
+	Audio.play("chime", -6.0)
 	Palette.restore_with_stamp(0.06)
 	GameState.save_to()
 	take_button.disabled = true

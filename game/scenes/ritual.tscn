@@ -183,7 +183,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "档案桌"
+text = "回到档案桌"
 
 [node name="Header" type="PanelContainer" parent="."]
 layout_mode = 1

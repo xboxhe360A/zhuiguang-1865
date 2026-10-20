@@ -30,6 +30,7 @@ var _selected: Array[String] = []
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_field")
 	GameState.current_dossier_id = "dossier_wudu"
 	_load_puzzle()
 	_background()
@@ -61,7 +62,7 @@ func _background() -> void:
 
 
 func _labels() -> void:
-	ribbon_label.text = "序卷 · 雾都    ｜    实物    ｜    %s" % str(_puzzle.get("title", ""))
+	ribbon_label.text = tr("序卷 · 雾都    ｜    实物    ｜    %s") % tr(str(_puzzle.get("title", "")))
 	prompt_label.text = str(_params.get("prompt", ""))
 	clue_label.text = str(_params.get("clue", ""))
 	feedback_label.text = str(_params.get("hint", ""))
@@ -87,7 +88,7 @@ func _build() -> void:
 		"pair":
 			_build_pair()
 		_:
-			feedback_label.text = "尚未接入的谜题模式：%s" % _mode
+			feedback_label.text = tr("尚未接入的谜题模式：%s") % _mode
 
 
 func _complete() -> void:
@@ -104,18 +105,18 @@ func _show_result() -> void:
 	var card := Archive.get_card(str(_puzzle.get("card", "")))
 	var extra := str(_params.get("result", ""))
 	if card != null:
-		result_title.text = card.title
-		result_body.text = "%s\n\n%s" % [card.body, extra]
+		result_title.text = tr(card.title)
+		result_body.text = "%s\n\n%s" % [tr(card.body), tr(extra)]
 	else:
-		result_title.text = str(_params.get("result_title", _puzzle.get("title", "已归档")))
-		result_body.text = extra
+		result_title.text = tr(str(_params.get("result_title", _puzzle.get("title", "已归档"))))
+		result_body.text = tr(extra)
 	var dossier := Archive.get_dossier("dossier_wudu")
 	var got := 0
 	if dossier != null:
 		for c in dossier.evidence:
 			if GameState.has_evidence(c.id):
 				got += 1
-		result_meta.text = "档案 WG-1865 ｜ 证据 %02d / %02d ｜ %s" % [got, dossier.evidence.size(), str(_params.get("eyebrow", "已归档"))]
+		result_meta.text = tr("档案 WG-1865 ｜ 证据 %02d / %02d ｜ %s") % [got, dossier.evidence.size(), tr(str(_params.get("eyebrow", "已归档")))]
 	result_eyebrow.text = str(_params.get("eyebrow", "档案 · FILED"))
 	result.visible = true
 	result.modulate.a = 0.0
@@ -196,15 +197,17 @@ func _on_item_pressed(item: Dictionary, button: Button) -> void:
 		if button.disabled:
 			return
 		_found += 1
+		Audio.play("brass_tick", -5.0)
 		button.disabled = true
 		button.text = "✓"
 		button.modulate = Color(0.75, 0.9, 0.62, 1)
-		feedback_label.text = "%s · 清单第 %d 件" % [str(item.get("name", "")), _found]
+		feedback_label.text = tr("%s · 清单第 %d 件") % [tr(str(item.get("name", ""))), _found]
 		_update_progress()
 		if _found >= int(_params.get("require", _correct_item_count())):
 			_complete()
 	else:
-		feedback_label.text = "%s · 清单上没有这一件" % str(item.get("name", ""))
+		Audio.play("pencil", -10.0)
+		feedback_label.text = tr("%s · 清单上没有这一件") % tr(str(item.get("name", "")))
 		_flash(button, Color(0.95, 0.45, 0.35, 1))
 
 
@@ -217,7 +220,7 @@ func _correct_item_count() -> int:
 
 
 func _update_progress() -> void:
-	progress_label.text = "已点出 %d / %d 件" % [_found, _correct_item_count()]
+	progress_label.text = tr("已点出 %d / %d 件") % [_found, _correct_item_count()]
 
 
 func _round_button(pos: Vector2, radius: float) -> Button:
@@ -315,7 +318,7 @@ func _build_seats() -> void:
 		row.add_theme_constant_override("separation", 8)
 		box.add_child(row)
 		var row_label := Label.new()
-		row_label.text = "第%d排" % (r + 1)
+		row_label.text = tr("第%d排") % (r + 1)
 		row_label.custom_minimum_size = Vector2(92, 0)
 		row_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row_label.add_theme_font_size_override("font_size", 20)
@@ -358,7 +361,7 @@ func _on_seat_pressed(seat_id: String, seat: Button) -> void:
 	if _finished:
 		return
 	if seat_id == str(_params.get("correct", "")):
-		feedback_label.text = "%s · 座位缝里有一角报纸。" % seat_id
+		feedback_label.text = tr("%s · 座位缝里有一角报纸。") % seat_id
 		seat.modulate = Color(0.75, 0.9, 0.62, 1)
 		_complete()
 		return
@@ -366,13 +369,13 @@ func _on_seat_pressed(seat_id: String, seat: Button) -> void:
 	var row := int(seat_id.substr(1)) - 1
 	var col := "ABCDEF".find(seat_id.substr(0, 1))
 	if row == 0 or row == int(_params.get("rows", 4)) - 1:
-		feedback_label.text = "%s · 首排太显眼，末排听不清。" % seat_id
+		feedback_label.text = tr("%s · 首排太显眼，末排听不清。") % seat_id
 	elif col < int(_params.get("aisle_after", 3)):
-		feedback_label.text = "%s · 左区离煤气灯太远。" % seat_id
+		feedback_label.text = tr("%s · 左区离煤气灯太远。") % seat_id
 	elif col >= int(_params.get("cols", 6)) - 1:
-		feedback_label.text = "%s · 右手边没有空位。" % seat_id
+		feedback_label.text = tr("%s · 右手边没有空位。") % seat_id
 	else:
-		feedback_label.text = "%s · 右手边坐着人。" % seat_id
+		feedback_label.text = tr("%s · 右手边坐着人。") % seat_id
 
 
 # ---------------------------------------------------------------- 货箱
@@ -391,7 +394,7 @@ func _build_crates() -> void:
 		button.offset_top = -64
 		button.offset_right = 95
 		button.offset_bottom = 64
-		button.text = "%s\n%d 担" % [str(crate.get("label", "?")), int(crate.get("weight", 0))]
+		button.text = "%s\n%d %s" % [str(crate.get("label", "?")), int(crate.get("weight", 0)), tr("担")]
 		button.add_theme_font_size_override("font_size", 28)
 		button.set_meta("weight", int(crate.get("weight", 0)))
 		button.set_meta("label", str(crate.get("label", "?")))
@@ -425,6 +428,7 @@ func _crate_style(hover: bool, selected: bool = false) -> StyleBoxFlat:
 
 
 func _on_crate_toggled(_pressed: bool) -> void:
+	Audio.play("wood", -12.0, 0.1)
 	_update_crate_progress()
 
 
@@ -441,7 +445,7 @@ func _update_crate_progress() -> void:
 	var selected := _selected_crates()
 	for crate in selected:
 		total += int(crate.get_meta("weight", 0))
-	progress_label.text = "已选 %d / %d 箱 · 合计 %d 长担（提单 72）" % [selected.size(), int(_params.get("pick", 3)), total]
+	progress_label.text = tr("已选 %d / %d 箱 · 合计 %d 长担（提单 72）") % [selected.size(), int(_params.get("pick", 3)), total]
 	action_button.disabled = selected.size() != int(_params.get("pick", 3))
 	if selected.size() > int(_params.get("pick", 3)):
 		feedback_label.text = "只吊三箱 · 多选的先卸下。"
@@ -452,10 +456,11 @@ func _submit_crates() -> void:
 	for crate in _selected_crates():
 		total += int(crate.get_meta("weight", 0))
 	if total == int(_params.get("target", 72)):
+		Audio.play("chime", -5.0)
 		feedback_label.text = "过秤 · 七十二长担，正好。"
 		_complete()
 	else:
-		feedback_label.text = "过秤 · %d 长担。提单要 72，差 %d。" % [total, absi(total - int(_params.get("target", 72)))]
+		feedback_label.text = tr("过秤 · %d 长担。提单要 72，差 %d。") % [total, absi(total - int(_params.get("target", 72)))]
 		_flash(action_button, Color(0.95, 0.45, 0.35, 1))
 
 
@@ -495,7 +500,7 @@ func _build_dial() -> void:
 	var reading := float(_params.get("reading", _params.get("min", 20) + 20))
 	var value_label := Label.new()
 	value_label.name = "ValueLabel"
-	value_label.text = "%d 拓" % int(reading)
+	value_label.text = tr("%d 拓") % int(reading)
 	value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	value_label.add_theme_font_size_override("font_size", 64)
 	value_label.add_theme_color_override("font_color", Color(0.91, 0.83, 0.63, 1))
@@ -508,7 +513,7 @@ func _build_dial() -> void:
 	slider.value = reading
 	slider.custom_minimum_size = Vector2(0, 60)
 	slider.value_changed.connect(func(value: float) -> void:
-		value_label.text = "%d %s" % [int(value), str(_params.get("unit", "拓"))]
+		value_label.text = tr("%d %s") % [int(value), tr(str(_params.get("unit", "拓")))]
 	)
 	box.add_child(slider)
 
@@ -525,7 +530,8 @@ func _build_dial() -> void:
 		var target := float(_params.get("target", 35))
 		var tolerance := float(_params.get("tolerance", 1))
 		if absf(slider.value - target) <= tolerance:
-			feedback_label.text = "日志记下：%d %s。" % [int(slider.value), str(_params.get("unit", "拓"))]
+			Audio.play("chime", -5.0)
+			feedback_label.text = tr("日志记下：%d %s。") % [int(slider.value), tr(str(_params.get("unit", "拓")))]
 			_complete()
 		else:
 			feedback_label.text = "与修正值不符。再算一遍：读数 × cos 夹角。"
@@ -567,14 +573,16 @@ func _on_latch_pressed(index: int, button: Button) -> void:
 	var labels: Array = _params.get("correct", [])
 	var expected: Array = labels.slice(0, _sequence.size())
 	if _sequence != expected:
+		Audio.play("wrong", -10.0)
 		feedback_label.text = "顺序不对 · 压痕重排。"
 		_sequence.clear()
 		_flash(button, Color(0.95, 0.45, 0.35, 1))
 		progress_label.text = "从第一扣重新开始"
 		return
-	feedback_label.text = "第 %d 扣 · %s" % [_sequence.size(), str(button.text)]
+	Audio.play("wood", -6.0, 0.06)
+	feedback_label.text = tr("第 %d 扣 · %s") % [_sequence.size(), tr(str(button.text))]
 	button.modulate = Color(0.75, 0.9, 0.62, 1)
-	progress_label.text = "已按 %d / %d 扣" % [_sequence.size(), labels.size()]
+	progress_label.text = tr("已按 %d / %d 扣") % [_sequence.size(), labels.size()]
 	if _sequence.size() == labels.size():
 		_complete()
 
@@ -672,6 +680,7 @@ func _build_pair() -> void:
 		name_label.text = str(fragment.get("name", ""))
 		name_label.add_theme_font_size_override("font_size", 27)
 		name_label.add_theme_color_override("font_color", Color(0.93, 0.86, 0.68, 1))
+		name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		box.add_child(name_label)
 
@@ -679,6 +688,7 @@ func _build_pair() -> void:
 		note_label.text = str(fragment.get("note", ""))
 		note_label.add_theme_font_size_override("font_size", 21)
 		note_label.add_theme_color_override("font_color", Color(0.7, 0.72, 0.64, 1))
+		note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		note_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		box.add_child(note_label)
 
@@ -714,7 +724,7 @@ func _on_fragment_toggled(_pressed: bool) -> void:
 	for child in board.find_children("*", "Button", true, false):
 		if child is Button and child.toggle_mode and child.button_pressed:
 			_selected.append(str(child.get_meta("fragment_id", "")))
-	progress_label.text = "已选 %d / 2 张" % _selected.size()
+	progress_label.text = tr("已选 %d / 2 张") % _selected.size()
 	action_button.disabled = _selected.size() != 2
 	if _selected.size() > 2:
 		feedback_label.text = "只比对两张。"
@@ -725,9 +735,11 @@ func _submit_pair() -> void:
 	var a := str(_selected[0]) if _selected.size() > 0 else ""
 	var b := str(_selected[1]) if _selected.size() > 1 else ""
 	if (a == str(correct[0]) and b == str(correct[1])) or (a == str(correct[1]) and b == str(correct[0])):
+		Audio.play("chime", -5.0)
 		feedback_label.text = "两张图的潮痕咬合 · 同一段海岸。"
 		_complete()
 	else:
+		Audio.play("tear", -10.0)
 		feedback_label.text = "两张图的潮痕位置对不上。"
 		_flash(action_button, Color(0.95, 0.45, 0.35, 1))
 

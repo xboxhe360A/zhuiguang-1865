@@ -16,6 +16,7 @@ const DESK_PATH := "res://scenes/archive_desk.tscn"
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_archive")
 	GameState.current_dossier_id = DOSSIER_ID
 	desk_button.pressed.connect(_go_desk)
 	ritual_button.pressed.connect(_open_ritual)
@@ -105,10 +106,12 @@ func _make_row(scene: Dictionary) -> Button:
 	text_box.add_child(status)
 
 	var arrow := Label.new()
-	arrow.text = "›" if unlocked else "锁"
+	arrow.text = "›"
+	arrow.custom_minimum_size = Vector2(44, 0)
+	arrow.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	arrow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	arrow.add_theme_font_size_override("font_size", 44 if unlocked else 24)
-	arrow.add_theme_color_override("font_color", Color(0.85098, 0.741176, 0.454902, 1) if unlocked else Color(0.5, 0.52, 0.5, 1))
+	arrow.add_theme_font_size_override("font_size", 44)
+	arrow.add_theme_color_override("font_color", Color(0.85098, 0.741176, 0.454902, 1) if unlocked else Color(0.5, 0.52, 0.5, 0.5))
 	arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	line.add_child(arrow)
 	return row
@@ -136,11 +139,11 @@ func _status_text(scene_id: String, unlocked: bool, done: int, total: int) -> St
 		var missing: Array[String] = []
 		for required in Chapter.scene_def(scene_id).get("requires", []):
 			var puzzle := Chapter.puzzle_def(str(required))
-			missing.append(str(puzzle.get("title", required)))
-		return "未开启 · 需完成「%s」" % "、".join(missing)
+			missing.append(tr(str(puzzle.get("title", required))))
+		return tr("未开启 · 需完成「%s」") % tr("、").join(missing)
 	if done == total:
-		return "已查清 · %d / %d" % [done, total]
-	return "待查 · %d / %d" % [done, total]
+		return tr("已查清 · %d / %d") % [done, total]
+	return tr("待查 · %d / %d") % [done, total]
 
 
 func _status_color(unlocked: bool, done: int, total: int) -> Color:
@@ -158,7 +161,7 @@ func _refresh() -> void:
 		for card in dossier.evidence:
 			if GameState.has_evidence(card.id):
 				got += 1
-		progress_label.text = "证据 %d / %d" % [got, dossier.evidence.size()]
+		progress_label.text = tr("证据 %d / %d") % [got, dossier.evidence.size()]
 	ritual_button.visible = Chapter.chapter_ready() and str(GameState.verdicts.get(DOSSIER_ID, "")).is_empty()
 	continue_button.disabled = _next_scene_id().is_empty()
 	continue_button.text = "继续查档" if not continue_button.disabled else "本卷已查清"

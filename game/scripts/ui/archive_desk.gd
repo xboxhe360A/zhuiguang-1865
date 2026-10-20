@@ -13,12 +13,17 @@ const SAVE_PATH := "user://save.json"
 @onready var toast: Label = %Toast
 @onready var toast_timer: Timer = %ToastTimer
 
+var _language_button: Button
+
 
 func _ready() -> void:
+	Audio.set_ambience("amb_archive")
 	enter_button.pressed.connect(_on_enter_pressed)
 	ritual_button.pressed.connect(_on_ritual_pressed)
 	load_button.pressed.connect(_on_load_pressed)
 	toast_timer.timeout.connect(func() -> void: toast.text = "")
+	_add_language_button()
+	Loc.locale_changed.connect(_on_locale_changed)
 	if GameState.collected.is_empty() and GameState.verdicts.is_empty() and FileAccess.file_exists(SAVE_PATH):
 		GameState.load_from()
 	_refresh()
@@ -45,10 +50,33 @@ func _on_ritual_pressed() -> void:
 
 
 func _on_load_pressed() -> void:
+	Audio.play("paper", -7.0)
 	var err := GameState.load_from()
 	_refresh()
-	toast.text = "已读档" if err == OK else "读档失败：%s" % error_string(err)
+	toast.text = tr("已读档") if err == OK else tr("读档失败：%s") % error_string(err)
 	toast_timer.start()
+
+
+func _add_language_button() -> void:
+	_language_button = Button.new()
+	_language_button.name = "BtnLanguage"
+	_language_button.text = Loc.toggle_label()
+	_language_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	_language_button.focus_mode = Control.FOCUS_NONE
+	_language_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	_language_button.offset_left = -166.0
+	_language_button.offset_top = 16.0
+	_language_button.offset_right = -48.0
+	_language_button.offset_bottom = 68.0
+	_language_button.add_theme_font_size_override("font_size", 24)
+	_language_button.pressed.connect(Loc.toggle)
+	add_child(_language_button)
+
+
+func _on_locale_changed(_locale: String) -> void:
+	if _language_button != null:
+		_language_button.text = Loc.toggle_label()
+	_refresh()
 
 
 func _refresh() -> void:
@@ -63,12 +91,12 @@ func _refresh() -> void:
 		if GameState.has_evidence(card.id):
 			got += 1
 	var verdict := str(GameState.verdicts.get(DOSSIER_ID, ""))
-	progress_label.text = "证据 %d / %d ｜ 三声裁定：%s" % [
+	progress_label.text = tr("证据 %d / %d ｜ 三声裁定：%s") % [
 		got,
 		dossier.evidence.size(),
-		_verdict_text(verdict) if not verdict.is_empty() else "未裁定",
+		tr(_verdict_text(verdict) if not verdict.is_empty() else "未裁定"),
 	]
-	enter_button.text = "继续卷宗" if got > 0 or not verdict.is_empty() else "打开卷宗"
+	enter_button.text = tr("继续卷宗") if got > 0 or not verdict.is_empty() else tr("打开卷宗")
 	ritual_button.visible = verdict.is_empty() and Chapter.chapter_ready()
 	load_button.disabled = not FileAccess.file_exists(SAVE_PATH)
 

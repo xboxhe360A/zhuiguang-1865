@@ -18,6 +18,12 @@ GameState="*res://scripts/autoload/game_state.gd"
 Palette="*res://scripts/autoload/palette.gd"
 Archive="*res://scripts/autoload/archive.gd"
 Chapter="*res://scripts/autoload/chapter.gd"
+Audio="*res://scripts/autoload/audio.gd"
+Loc="*res://scripts/autoload/locale.gd"
+
+[audio]
+
+buses/default_bus_layout="res://audio/default_bus_layout.tres"
 
 [display]
 
@@ -29,6 +35,11 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 window/handheld/orientation=1
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/strings.en.translation")
+locale/fallback="zh_CN"
+
 [gui]
 
 theme/custom="res://theme/main_theme.tres"
@@ -38,3 +49,4 @@ theme/custom="res://theme/main_theme.tres"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false
+textures/vram_compression/import_etc2_astc=true

@@ -35,6 +35,7 @@ var _lamp_tween: Tween
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_darkroom")
 	GameState.current_dossier_id = "dossier_wudu"
 	_load_puzzle()
 	_labels()
@@ -56,11 +57,11 @@ func _load_puzzle() -> void:
 
 
 func _labels() -> void:
-	ribbon_label.text = "序卷 · 雾都    ｜    显影    ｜    %s" % str(_puzzle.get("title", "灯下五张底片"))
+	ribbon_label.text = tr("序卷 · 雾都    ｜    显影    ｜    %s") % tr(str(_puzzle.get("title", "灯下五张底片")))
 	prompt_label.text = str(_params.get("prompt", ""))
 	hint_label.text = str(_params.get("hint", "拖到底片灯上松手。五张叠齐，影像才会显色。"))
 	feedback_label.text = "灯还亮着 · 五张底片在桌上。"
-	progress_label.text = "已叠 0 / %d" % _plates_count()
+	progress_label.text = tr("已叠 0 / %d") % _plates_count()
 
 
 func _plates_count() -> int:
@@ -188,13 +189,14 @@ func _on_plate_dropped(plate: PlateToken) -> void:
 
 
 func _dock(plate: PlateToken) -> void:
+	Audio.play("wood", -7.0, 0.08)
 	plate.disable_drag()
 	_docked.append(plate)
 	var index := _docked.size() - 1
 	var offset := Vector2(float(index) * 10.0 - 20.0, float(index) * -6.0)
 	var target := _lamp_center() + offset - plate.size * 0.5
-	feedback_label.text = "叠上第 %d 张 · %s。" % [_docked.size(), _plate_year(plate)]
-	progress_label.text = "已叠 %d / %d" % [_docked.size(), _plates.size()]
+	feedback_label.text = tr("叠上第 %d 张 · %s。") % [_docked.size(), _plate_year(plate)]
+	progress_label.text = tr("已叠 %d / %d") % [_docked.size(), _plates.size()]
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(plate, "global_position", target, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(plate, "scale", Vector2(0.66, 0.66), 0.3)
@@ -212,6 +214,7 @@ func _plate_year(plate: PlateToken) -> String:
 
 func _reveal() -> void:
 	_revealing = true
+	Audio.play("chime", -5.0)
 	if _lamp_tween != null:
 		_lamp_tween.kill()
 	feedback_label.text = "五张叠成一个点 · 彩色从灯芯涨开。"
@@ -238,11 +241,11 @@ func _show_result() -> void:
 	var card := Archive.get_card(str(_puzzle.get("card", "")))
 	var extra := str(_params.get("result", ""))
 	if card != null:
-		result_title.text = card.title
-		result_body.text = "%s\n\n%s" % [card.body, extra]
+		result_title.text = tr(card.title)
+		result_body.text = "%s\n\n%s" % [tr(card.body), tr(extra)]
 	else:
-		result_title.text = str(_params.get("result_title", _puzzle.get("title", "已归档")))
-		result_body.text = extra
+		result_title.text = tr(str(_params.get("result_title", _puzzle.get("title", "已归档"))))
+		result_body.text = tr(extra)
 	result_eyebrow.text = str(_params.get("eyebrow", "显影 · FIVE PLATES"))
 	var dossier := Archive.get_dossier("dossier_wudu")
 	var got := 0
@@ -250,7 +253,7 @@ func _show_result() -> void:
 		for c in dossier.evidence:
 			if GameState.has_evidence(c.id):
 				got += 1
-		result_meta.text = "档案 WG-1865 ｜ 证据 %02d / %02d ｜ 五片叠齐" % [got, dossier.evidence.size()]
+		result_meta.text = tr("档案 WG-1865 ｜ 证据 %02d / %02d ｜ 五片叠齐") % [got, dossier.evidence.size()]
 	result.visible = true
 	result.modulate.a = 0.0
 	create_tween().tween_property(result, "modulate:a", 1.0, 0.25)

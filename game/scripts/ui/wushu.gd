@@ -44,6 +44,7 @@ var _move_panel: Control
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_field")
 	GameState.current_dossier_id = "dossier_wudu"
 	_load_puzzle()
 	_labels()
@@ -76,11 +77,11 @@ func _load_puzzle() -> void:
 
 
 func _labels() -> void:
-	ribbon_label.text = "序卷 · 雾都    ｜    巷战    ｜    %s" % str(_puzzle.get("title", "后巷 · 三拍"))
+	ribbon_label.text = tr("序卷 · 雾都    ｜    巷战    ｜    %s") % tr(str(_puzzle.get("title", "后巷 · 三拍")))
 	prompt_label.text = str(_params.get("prompt", ""))
 	hint_label.text = str(_params.get("hint", "威胁线进入铜环时点对应方向格挡。"))
 	feedback_label.text = "看清楚来路 · 四拍。"
-	progress_label.text = "接住 0 / %d 拍" % _lanes.size()
+	progress_label.text = tr("接住 0 / %d 拍") % _lanes.size()
 
 
 func _build_lanes() -> void:
@@ -120,7 +121,7 @@ func _build_lanes() -> void:
 		_lane_buttons.append(button)
 
 		var tag := Label.new()
-		tag.text = "第 %d 路" % (i + 1)
+		tag.text = tr("第 %d 路") % (i + 1)
 		tag.anchor_left = LANE_X[i]
 		tag.anchor_right = LANE_X[i]
 		tag.anchor_top = RING_RATIO
@@ -255,16 +256,18 @@ func _on_lane_pressed(lane: int) -> void:
 		if distance <= DEFAULT_WINDOW and (best.is_empty() or distance < float(best["distance"])):
 			best = {"threat": threat, "distance": distance}
 	if best.is_empty():
-		feedback_label.text = "%s路空拍 · 手别比眼快。" % LANE_NAMES[lane]
+		Audio.play("pencil", -12.0)
+		feedback_label.text = tr("%s路空拍 · 手别比眼快。") % tr(LANE_NAMES[lane])
 		return
 	var threat: Dictionary = best["threat"]
 	threat["resolved"] = true
 	_resolved += 1
 	_hits += 1
 	var node: Control = threat["node"]
+	Audio.play("wood", -4.0, 0.06)
 	node.modulate = Color(0.72, 0.92, 0.6, 1)
-	feedback_label.text = "接住第 %d 拍 · %s路。" % [_hits, LANE_NAMES[lane]]
-	progress_label.text = "接住 %d / %d 拍" % [_hits, _lanes.size()]
+	feedback_label.text = tr("接住第 %d 拍 · %s路。") % [_hits, tr(LANE_NAMES[lane])]
+	progress_label.text = tr("接住 %d / %d 拍") % [_hits, _lanes.size()]
 	var tween := create_tween()
 	tween.tween_property(node, "scale", Vector2(1.35, 1.35), 0.08)
 	tween.parallel().tween_property(node, "modulate:a", 0.0, 0.2)
@@ -315,7 +318,7 @@ func _show_moves() -> void:
 	box.add_child(title)
 
 	var note := Label.new()
-	note.text = "接住 %d / %d 拍。为首者持短棍，右肩在前。" % [_hits, _lanes.size()]
+	note.text = tr("接住 %d / %d 拍。为首者持短棍，右肩在前。") % [_hits, _lanes.size()]
 	note.add_theme_font_size_override("font_size", 22)
 	note.add_theme_color_override("font_color", Color(0.66, 0.71, 0.68, 1))
 	box.add_child(note)
@@ -359,12 +362,14 @@ func _on_move_pressed(move_id: String, button: Button) -> void:
 	if _finished:
 		return
 	if move_id != _correct_move:
+		Audio.play("wrong", -9.0)
 		feedback_label.text = "他沉肩让过 · 换一招，不用急。"
 		var tween := create_tween()
 		tween.tween_property(button, "modulate", Color(0.95, 0.5, 0.4, 1), 0.08)
 		tween.tween_property(button, "modulate", Color(1, 1, 1, 1), 0.25)
 		return
 	button.modulate = Color(0.72, 0.92, 0.6, 1)
+	Audio.play("chime", -4.0)
 	for child in button.get_parent().get_children():
 		if child is Button:
 			child.disabled = true
@@ -386,11 +391,11 @@ func _show_result() -> void:
 	var card := Archive.get_card(str(_puzzle.get("card", "")))
 	var extra := str(_params.get("result", ""))
 	if card != null:
-		result_title.text = card.title
-		result_body.text = "%s\n\n%s" % [card.body, extra]
+		result_title.text = tr(card.title)
+		result_body.text = "%s\n\n%s" % [tr(card.body), tr(extra)]
 	else:
-		result_title.text = str(_params.get("result_title", _puzzle.get("title", "已归档")))
-		result_body.text = extra
+		result_title.text = tr(str(_params.get("result_title", _puzzle.get("title", "已归档"))))
+		result_body.text = tr(extra)
 	result_eyebrow.text = str(_params.get("eyebrow", "档案 · 第一课"))
 	var dossier := Archive.get_dossier("dossier_wudu")
 	var got := 0
@@ -398,7 +403,7 @@ func _show_result() -> void:
 		for c in dossier.evidence:
 			if GameState.has_evidence(c.id):
 				got += 1
-		result_meta.text = "档案 WG-1865 ｜ 证据 %02d / %02d ｜ 接住 %d / %d 拍" % [got, dossier.evidence.size(), _hits, _lanes.size()]
+		result_meta.text = tr("档案 WG-1865 ｜ 证据 %02d / %02d ｜ 接住 %d / %d 拍") % [got, dossier.evidence.size(), _hits, _lanes.size()]
 	result.visible = true
 	result.modulate.a = 0.0
 	create_tween().tween_property(result, "modulate:a", 1.0, 0.25)

@@ -27,6 +27,7 @@ var _solved := false
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_field")
 	_puzzle = Chapter.puzzle_def(GameState.current_puzzle_id)
 	if _puzzle.is_empty():
 		_puzzle = Chapter.puzzle_def("P2")
@@ -60,11 +61,11 @@ func _apply_params() -> void:
 	crosshair.set_focus_ratio(focus)
 	_snap_distance = float(_params.get("tolerance", DEFAULT_SNAP_DISTANCE))
 
-	ribbon_label.text = "序卷 · 雾都    ｜    校图台    ｜    %s" % str(_puzzle.get("title", "航记对位"))
+	ribbon_label.text = tr("序卷 · 雾都    ｜    校图台    ｜    %s") % tr(str(_puzzle.get("title", "航记对位")))
 	hint_label.text = str(_params.get("prompt", "拖动描图纸，让纸上的十字对准脉动铜环"))
 	result_eyebrow.text = str(_params.get("eyebrow", "校合 · ALIGNED"))
 	var metric_note := $HintPanel/Box/MetricRow/MetricNote as Label
-	metric_note.text = "≤ %d px 松手即校合" % int(_snap_distance)
+	metric_note.text = tr("≤ %d px 松手即校合") % int(_snap_distance)
 
 
 static func is_within_snap(distance: float, tolerance: float = DEFAULT_SNAP_DISTANCE) -> bool:
@@ -98,6 +99,7 @@ func _solve() -> void:
 	if _solved:
 		return
 	_solved = true
+	Audio.play("align_snap", -3.0)
 	trace_sheet.set_interactive(false)
 	var tween := create_tween()
 	tween.tween_property(trace_sheet, "global_position", _target_center() - trace_sheet.size * trace_sheet.focus_ratio, 0.28).set_trans(Tween.TRANS_SINE)
@@ -117,18 +119,18 @@ func _show_result() -> void:
 	var card := Archive.get_card(str(_puzzle.get("card", "")))
 	var body := str(_params.get("result", ""))
 	if card != null:
-		result_title.text = card.title
-		result_body.text = "%s\n\n%s" % [card.body, body]
+		result_title.text = tr(card.title)
+		result_body.text = "%s\n\n%s" % [tr(card.body), tr(body)]
 	else:
-		result_title.text = str(_params.get("result_title", _puzzle.get("title", "校合完成")))
-		result_body.text = body
+		result_title.text = tr(str(_params.get("result_title", _puzzle.get("title", "校合完成"))))
+		result_body.text = tr(body)
 	var dossier := Archive.get_dossier(GameState.current_dossier_id)
 	var got := 0
 	if dossier != null:
 		for c in dossier.evidence:
 			if GameState.has_evidence(c.id):
 				got += 1
-		result_meta.text = "档案 WG-1865 ｜ 证据 %02d / %02d ｜ 校合完成" % [got, dossier.evidence.size()]
+		result_meta.text = tr("档案 WG-1865 ｜ 证据 %02d / %02d ｜ 校合完成") % [got, dossier.evidence.size()]
 	result.visible = true
 	result.modulate.a = 0.0
 	create_tween().tween_property(result, "modulate:a", 1.0, 0.25)

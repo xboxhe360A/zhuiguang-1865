@@ -21,9 +21,11 @@ var _puzzle: Dictionary = {}
 var _params: Dictionary = {}
 var _progress := 0.0
 var _finished := false
+var _last_rub_ms := 0
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_darkroom")
 	_puzzle = Chapter.puzzle_def(GameState.current_puzzle_id)
 	if _puzzle.is_empty():
 		_puzzle = Chapter.puzzle_def("P3")
@@ -41,7 +43,7 @@ func _apply_params() -> void:
 	var texture := load(plate_path) as Texture2D
 	if texture != null:
 		plate.texture = texture
-	ribbon_label.text = "序卷 · 雾都    ｜    暗房    ｜    %s" % str(_puzzle.get("title", "湿版显影"))
+	ribbon_label.text = tr("序卷 · 雾都    ｜    暗房    ｜    %s") % tr(str(_puzzle.get("title", "湿版显影")))
 	result_eyebrow.text = str(_params.get("eyebrow", "显影 · DEVELOPED"))
 	hint_label.text = str(_params.get("prompt", "按住底片来回擦拭，让乳剂下的影像浮出"))
 
@@ -70,6 +72,10 @@ func add_progress(amount: float) -> void:
 
 
 func _on_rubbed(amount: float) -> void:
+	var now := Time.get_ticks_msec()
+	if now - _last_rub_ms > 260:
+		_last_rub_ms = now
+		Audio.play("water", -11.0, 0.12)
 	add_progress(amount)
 
 
@@ -77,6 +83,7 @@ func _finish() -> void:
 	if _finished:
 		return
 	_finished = true
+	Audio.play("develop_done", -4.0)
 	surface.set_interactive(false)
 	var puzzle_id := str(_puzzle.get("id", ""))
 	if not puzzle_id.is_empty():
@@ -90,18 +97,18 @@ func _show_result() -> void:
 	var card := Archive.get_card(str(_puzzle.get("card", "")))
 	var extra := str(_params.get("result", ""))
 	if card != null:
-		result_title.text = card.title
-		result_body.text = "%s\n\n%s" % [card.body, extra]
+		result_title.text = tr(card.title)
+		result_body.text = "%s\n\n%s" % [tr(card.body), tr(extra)]
 	else:
-		result_title.text = str(_params.get("result_title", _puzzle.get("title", "显影完成")))
-		result_body.text = extra
+		result_title.text = tr(str(_params.get("result_title", _puzzle.get("title", "显影完成"))))
+		result_body.text = tr(extra)
 	var dossier := Archive.get_dossier(GameState.current_dossier_id)
 	var got := 0
 	if dossier != null:
 		for c in dossier.evidence:
 			if GameState.has_evidence(c.id):
 				got += 1
-		result_meta.text = "档案 WG-1865 ｜ 证据 %02d / %02d ｜ 显影完成" % [got, dossier.evidence.size()]
+		result_meta.text = tr("档案 WG-1865 ｜ 证据 %02d / %02d ｜ 显影完成") % [got, dossier.evidence.size()]
 	result.visible = true
 	result.modulate.a = 0.0
 	create_tween().tween_property(result, "modulate:a", 1.0, 0.25)

@@ -21,6 +21,7 @@ var _sealed := false
 
 
 func _ready() -> void:
+	Audio.set_ambience("amb_archive")
 	_choice_buttons = [%BtnTrue, %BtnFalse, %BtnDoubt]
 	for i in _choice_buttons.size():
 		_choice_buttons[i].pressed.connect(_on_choice.bind(i))
@@ -54,14 +55,14 @@ func _refresh_summary() -> void:
 		for card in dossier.evidence:
 			if GameState.has_evidence(card.id):
 				got += 1
-	summary_label.text = "已归档证据 %d / %d ｜ 现下饱和 %d%% ｜ 三册未封" % [
+	summary_label.text = tr("已归档证据 %d / %d ｜ 现下饱和 %d%% ｜ 三册未封") % [
 		got,
 		dossier.evidence.size() if dossier != null else 0,
 		int(round(Palette.saturation * 100.0)),
 	]
 	var existing := str(GameState.verdicts.get(DOSSIER_ID, ""))
 	if not existing.is_empty():
-		hint_label.text = "本卷已经裁定：%s" % _verdict_text(existing)
+		hint_label.text = tr("本卷已经裁定：%s") % tr(_verdict_text(existing))
 
 
 func _on_choice(index: int) -> void:
@@ -77,6 +78,7 @@ func _on_choice(index: int) -> void:
 
 
 func _reject(button: Button) -> void:
+	Audio.play("tear", -5.0)
 	Palette.add_saturation(-0.1)
 	toast.text = "这一声压不住纸页。墨迹褪去了一点。"
 	toast_timer.start()
@@ -92,6 +94,10 @@ func _seal() -> void:
 	if _sealed:
 		return
 	_sealed = true
+	Audio.play("stamp", -2.0)
+	var seal_sfx := create_tween()
+	seal_sfx.tween_interval(0.18)
+	seal_sfx.tween_callback(func() -> void: Audio.play("seal", -4.0))
 	for button in _choice_buttons:
 		button.disabled = true
 	GameState.record_verdict(DOSSIER_ID, CANONICAL_VERDICT)
